@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Burned&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Micro+5&family=Ojuju:wght@738&display=swap');
+
+
+.about-title{
+    font-family: "Rubik Burned", system-ui;
+    font-size: 100px;
+    color: white;
+    background-color: black;
+}
+
+.paragraph{
+    color: white;
+    background-color: black;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
