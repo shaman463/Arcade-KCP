@@ -1,5 +1,5 @@
 import React from 'react'
-import MemoryGame from './components/memorygame.jsx'
+import MemoryCardGame from './components/MemoryCardGame.jsx'
 import TicTacToe from './components/TicTacToe.jsx'
 import Snake from './components/snake.jsx'
 import About from './components/About.jsx'
@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom/client'
 import Rockpaper from './components/rockpaper.jsx'
 import Services from './components/Services.jsx'
 import App from './App.jsx'
+import ErrorBoundary from './components/ErrorBoundary.jsx'
 import './index.css'
 import {
   createBrowserRouter,
@@ -17,40 +18,42 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <ErrorBoundary><App/></ErrorBoundary>,
   },
   {
     path: "memorygame",
-    element: <MemoryGame/>,
+    element: <ErrorBoundary><MemoryCardGame/></ErrorBoundary>,
   },
   {
     path: "TicTacToe",
-    element: <TicTacToe/>,
+    element: <ErrorBoundary><TicTacToe/></ErrorBoundary>,
   },
   {
     path: "snake",
-    element: <Snake/>,
+    element: <ErrorBoundary><Snake/></ErrorBoundary>,
   },
   {
     path: "rockpaper",
-    element: <Rockpaper/>,
+    element: <ErrorBoundary><Rockpaper/></ErrorBoundary>,
   },
   {
     path: "About",
-    element: <About/>,
+    element: <ErrorBoundary><About/></ErrorBoundary>,
   },
   {
     path: "Contact",
-    element: <Contact/>,
+    element: <ErrorBoundary><Contact/></ErrorBoundary>,
   },
   {
     path: "Services",
-    element: <Services/>,
+    element: <ErrorBoundary><Services/></ErrorBoundary>,
   },
 ]); 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
-    <RouterProvider router={router} />
-  // </React.StrictMode>,
+  <React.StrictMode>
+    <ErrorBoundary>
+      <RouterProvider router={router} />
+    </ErrorBoundary>
+  </React.StrictMode>
 )

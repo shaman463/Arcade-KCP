@@ -1,88 +1,157 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Burned&display=swap');
 
-
 :root {
     --primary: #0d47a1;
     --primary-dark: #002171;
     --primary-light: #5472d3;
     --primary-text: #ffffff;
-  }
-  
-  
-  
-  h3 {
-    font-size: 24px;
-    margin: 0;
-    background-color: var(--primary-dark);
-    color: var(--primary-text);
-    padding: 8px;
-  }
-  
-  .title-2{
-    margin: 0px 0;
+}
+
+.title-2 {
+    margin: 30px 0;
     font-family: "Rubik Burned", system-ui;
-    font-size: 70px;
+    font-size: clamp(40px, 8vw, 70px);
     color: var(--primary-text);
-  }
-  
-  .center-2 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.center-2 {
     text-align: center;
     background-color: black;
-  }
-  
-  .container-2 {
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-2 {
     background-color: black;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    vertical-align: center;
-  }
-  
-  .player {
-    margin: 50px 10px;
-    width: 320px;
-    height: 320px;
+    gap: 30px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.player {
+    margin: 20px 10px;
+    width: min(300px, 40vw);
+    height: min(300px, 40vw);
     display: flex;
     flex-direction: column;
     background-color: var(--primary-text);
     color: var(--primary-text);
-  }
-  
-  .score {
-    padding: 1px;
-    font-size: 50px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.player:hover {
+    transform: translateY(-5px);
+}
+
+.score {
+    padding: 15px;
+    font-size: clamp(24px, 5vw, 40px);
     font-weight: bold;
     background-color: var(--primary-dark);
-  }
-  
-  .action {
+    border-radius: 15px 15px 0 0;
+    color: var(--primary-text);
+}
+
+.action {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     flex-grow: 1;
     color: var(--primary);
-  }
-  
-  .round-btn-1 {
-    padding-left: 15px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: none;
-    margin: 2px;
-    cursor: pointer;
-    background-color: var(--primary-dark);
-    color: var(--primary-text);
-  }
-  
-  .round-btn:hover {
-    background-color: var(--primary-light);
-  }
+    background-color: #f8f9fa;
+    border-radius: 0 0 15px 15px;
+}
 
-  .winner-1{
+.round-btn-1 {
+    width: clamp(80px, 12vw, 120px);
+    height: clamp(80px, 12vw, 120px);
+    border-radius: 50%;
+    border: 3px solid var(--primary-dark);
+    margin: 8px;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: var(--primary-text);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.round-btn-1:hover {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(13, 71, 161, 0.4);
+}
+
+.round-btn-1:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.winner-1 {
     font-family: "Rubik Burned", system-ui;
-    font-size: 50px;
+    font-size: clamp(30px, 6vw, 50px);
     margin: 30px 0;
     color: white;
-  }
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .center-2 {
+        padding: 15px;
+    }
+    
+    .container-2 {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .player {
+        width: min(250px, 80vw);
+        height: min(250px, 80vw);
+        margin: 10px;
+    }
+    
+    .round-btn-1 {
+        width: 70px;
+        height: 70px;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .player {
+        width: min(200px, 90vw);
+        height: min(200px, 90vw);
+    }
+    
+    .round-btn-1 {
+        width: 60px;
+        height: 60px;
+        margin: 4px;
+    }
+    
+    .score {
+        padding: 10px;
+    }
+}

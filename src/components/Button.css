@@ -1,35 +1,74 @@
 /* Button.css */
-.upwards, 
-.downwards { 
-	display: flex; 
-	justify-content: center; 
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.upwards, .downwards { 
+    display: flex; 
+    justify-content: center; 
 } 
 
 .sideways { 
-	display: flex; 
-	justify-content: center; 
-	margin: 10px; 
+    display: flex; 
+    justify-content: center; 
+    gap: 40px;
 } 
 
-.left, 
-.right { 
-	margin: 50px; 
-	padding: 20px; 
-	border: 0px solid; 
-	border-radius: 20px; 
-	border: 1px solid white; 
-	color: #dc042c; 
-	background: #1e1e1e; 
-	box-shadow: 5px -5px 10px rgba(0, 0, 0, 0.6); 
+.left, .right, .up, .down { 
+    padding: 15px 25px; 
+    border: 2px solid #3b82f6; 
+    border-radius: 10px; 
+    color: #ffffff; 
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    min-width: 80px;
 } 
 
-.up, 
-.down { 
-	padding: 20px; 
-	border: 0px solid; 
-	border-radius: 20px; 
-	border: 1px solid white; 
-	color: #dc042c; 
-	background: #1e1e1e; 
-	box-shadow: 5px -5px 10px rgba(0, 0, 0, 0.6); 
+.left:hover, .right:hover, .up:hover, .down:hover {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+}
+
+.left:active, .right:active, .up:active, .down:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .sideways {
+        gap: 20px;
+    }
+    
+    .left, .right, .up, .down {
+        padding: 12px 20px;
+        font-size: 14px;
+        min-width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .buttons {
+        margin-top: 15px;
+        gap: 8px;
+    }
+    
+    .sideways {
+        gap: 15px;
+    }
+    
+    .left, .right, .up, .down {
+        padding: 10px 15px;
+        font-size: 12px;
+        min-width: 50px;
+    }
 }

@@ -1,6 +1,5 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import './Memorygame.css'
+import React, { useState, useEffect, useCallback } from 'react'
+import './MemoryCardGame.css'
 import SingleCard from './SingleCard'
 import Navbar from './Navbar'
 import { Helmet } from 'react-helmet'
@@ -15,79 +14,80 @@ const cardImages = [
   { "src": "/img/sword-1.png", matched: false }
 ]
 
-const MemoryGame = () => {
-
-
-  // AT first the cards are empty line no:26
+const MemoryCardGame = () => {
   const [cards, setCards] = useState([])
   const [turns, setTurns] = useState(0)
   const [choiceone, setchoiceone] = useState(null)
   const [choicetwo, setchoicetwo] = useState(null)
   const [disabled, setDisabled] = useState(false)
 
-  //shuffle the cards
-  // then the shufflecards function make cards a set of 2 cards
-  // it shuffle all cards
-  const shuffleCards = () => {
+  // shuffle the cards
+  const shuffleCards = useCallback(() => {
     const shuffledCards = [...cardImages, ...cardImages]
-      // The sort method is fire for both the items in the array
-      //IF we return number less than 0 then the order of the item remains the same and if we number is greater than 0 then order of both the item will be mixed up or swaped
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }))
-
 
     setchoiceone(null)
     setchoicetwo(null)
     setCards(shuffledCards)
-    //After this the cards are mapped in line: 93
     setTurns(0)
-  }
+  }, []);
 
   // handle a choice
-  const handleChoice = (card) => {
-    choiceone ? setchoicetwo(card) : setchoiceone(card)
-  }
+  const handleChoice = useCallback((card) => {
+    if (disabled) return;
+    
+    if (choiceone) {
+      if (choiceone.id !== card.id) {
+        setchoicetwo(card);
+      }
+    } else {
+      setchoiceone(card);
+    }
+  }, [choiceone, disabled]);
+
+  // reset choices and increase turn
+  const resetTurn = useCallback(() => {
+    setchoiceone(null)
+    setchoicetwo(null)
+    setTurns(prevTurns => prevTurns + 1)
+    setDisabled(false)
+  }, []);
 
   // compare 2 selected cards
-
   useEffect(() => {
     if (choiceone && choicetwo) {
       setDisabled(true)
+      
       if (choiceone.src === choicetwo.src) {
         setCards(prevCards => {
           return prevCards.map(card => {
             if (card.src === choiceone.src) {
               return { ...card, matched: true }
             }
-            else {
-              return card
-            }
+            return card
           })
         })
         resetTurn()
-      }
-      else {
+      } else {
         setTimeout(() => resetTurn(), 1000)
       }
     }
-  }, [choiceone, choicetwo])
+  }, [choiceone, choicetwo, resetTurn])
 
-  console.log(cards)
-
-
-  // reset choices and increse turn
-  const resetTurn = () => {
-    setchoiceone(null)
-    setchoicetwo(null)
-    setTurns(prevTurns => prevTurns + 1)
-    setDisabled(true)
-    setDisabled(false)
-  }
+  // Check for win condition
+  useEffect(() => {
+    if (cards.length > 0 && cards.every(card => card.matched)) {
+      setTimeout(() => {
+        alert(`Congratulations! You won in ${turns} turns!`);
+      }, 500);
+    }
+  }, [cards, turns]);
 
   // start the game automatically
   useEffect(() => {
     shuffleCards()
-  }, [])
+  }, [shuffleCards])
 
 
   return (
@@ -122,4 +122,4 @@ const MemoryGame = () => {
   )
 }
 
-export default MemoryGame
+export default MemoryCardGame

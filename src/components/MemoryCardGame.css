@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Burned&display=swap');
+
+body {
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.app {
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+.title-1 {
+    font-family: "Rubik Burned", system-ui;
+    font-weight: 900;
+    font-size: clamp(40px, 8vw, 80px);
+    color: rgb(168, 168, 168);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card-grid {
+    width: min(600px, 90vw);
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.button-1 {
+    font-size: clamp(18px, 4vw, 28px);
+    margin: 20px 0;
+    font-weight: bold;
+    border: 2px solid #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.button-1:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+}
+
+.turn-1 {
+    font-family: "Rubik Burned", system-ui;
+    font-size: clamp(20px, 4vw, 30px);
+    color: white;
+    margin: 20px 0;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .app {
+        padding: 15px;
+        margin: 0;
+    }
+    
+    .card-grid {
+        width: 95vw;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        padding: 10px;
+    }
+    
+    .button-1 {
+        padding: 10px 20px;
+        margin: 15px 0;
+    }
+}

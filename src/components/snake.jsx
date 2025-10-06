@@ -1,5 +1,4 @@
-import React from "react";
-import { Component } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Button from "./Button";
 import Food from "./Food";
 import Menu from "./Menu";
@@ -9,239 +8,291 @@ import Navbar from "./Navbar";
 import { Helmet } from "react-helmet";
 import Footer from "./Footer";
 
-
 const getRandomFood = () => { 
-	let min = 1; 
-	let max = 98; 
-	let x = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2; 
-	let y = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2; 
-	return [x, y]; 
+    let min = 1; 
+    let max = 98; 
+    let x = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2; 
+    let y = Math.floor((Math.random() * (max - min + 1) + min) / 2) * 2; 
+    return [x, y]; 
 }; 
 
 const initialState = { 
-	food: getRandomFood(), 
-	direction: "RIGHT", 
-	speed: 100, 
-	route: "menu", 
-	snakeDots: [ 
-		[0, 0], 
-		[0, 2], 
-	], 
+    food: getRandomFood(), 
+    direction: "RIGHT", 
+    speed: 100, 
+    route: "menu", 
+    snakeDots: [ 
+        [0, 0], 
+        [0, 2], 
+    ], 
 }; 
 
-class Snake extends Component { 
-	constructor() { 
-		super(); 
-		this.state = initialState; 
-	} 
+const Snake = () => {
+    const [gameState, setGameState] = useState(initialState);
 
-	componentDidMount() { 
-		setInterval(this.moveSnake, this.state.speed); 
-		document.onkeydown = this.onKeyDown; 
-	} 
+    const onKeyDown = useCallback((e) => { 
+        e.preventDefault(); 
+        e = e || window.event; 
+        
+        setGameState(prevState => {
+            if (prevState.route !== "game") return prevState;
+            
+            switch (e.keyCode) { 
+                case 37: 
+                    return prevState.direction !== "RIGHT" ? { ...prevState, direction: "LEFT" } : prevState;
+                case 38: 
+                    return prevState.direction !== "DOWN" ? { ...prevState, direction: "UP" } : prevState;
+                case 39: 
+                    return prevState.direction !== "LEFT" ? { ...prevState, direction: "RIGHT" } : prevState;
+                case 40: 
+                    return prevState.direction !== "UP" ? { ...prevState, direction: "DOWN" } : prevState;
+                default:
+                    return prevState;
+            } 
+        });
+    }, []);
 
-	componentDidUpdate() { 
-		this.onSnakeOutOfBounds(); 
-		this.onSnakeCollapsed(); 
-		this.onSnakeEats(); 
-	} 
+    const moveSnake = useCallback(() => { 
+        setGameState(prevState => {
+            if (prevState.route !== "game") return prevState;
+            
+            let dots = [...prevState.snakeDots]; 
+            let head = dots[dots.length - 1]; 
+            
+            switch (prevState.direction) { 
+                case "RIGHT": 
+                    head = [head[0] + 2, head[1]]; 
+                    break; 
+                case "LEFT": 
+                    head = [head[0] - 2, head[1]]; 
+                    break; 
+                case "DOWN": 
+                    head = [head[0], head[1] + 2]; 
+                    break; 
+                case "UP": 
+                    head = [head[0], head[1] - 2]; 
+                    break; 
+            } 
+            dots.push(head); 
+            dots.shift(); 
+            
+            return {
+                ...prevState,
+                snakeDots: dots
+            };
+        });
+    }, []);
 
-	onKeyDown = (e) => { 
-		e.preventDefault(); 
-		e = e || window.event; 
-		switch (e.keyCode) { 
-			case 37: 
-				this.setState({ direction: "LEFT" }); 
-				break; 
-			case 38: 
-				this.setState({ direction: "UP" }); 
-				break; 
-			case 39: 
-				this.setState({ direction: "RIGHT" }); 
-				break; 
-			case 40: 
-				this.setState({ direction: "DOWN" }); 
-				break; 
-		} 
-	}; 
+    const onSnakeOutOfBounds = useCallback(() => { 
+        const head = gameState.snakeDots[gameState.snakeDots.length - 1]; 
+        if (gameState.route === "game") { 
+            if ( 
+                head[0] >= 100 || 
+                head[1] >= 100 || 
+                head[0] < 0 || 
+                head[1] < 0 
+            ) { 
+                gameOver(); 
+            } 
+        } 
+    }, [gameState.snakeDots, gameState.route]);
 
-	moveSnake = () => { 
-		let dots = [...this.state.snakeDots]; 
-		let head = dots[dots.length - 1]; 
-		if (this.state.route === "game") { 
-			switch (this.state.direction) { 
-				case "RIGHT": 
-					head = [head[0] + 2, head[1]]; 
-					break; 
-				case "LEFT": 
-					head = [head[0] - 2, head[1]]; 
-					break; 
-				case "DOWN": 
-					head = [head[0], head[1] + 2]; 
-					break; 
-				case "UP": 
-					head = [head[0], head[1] - 2]; 
-					break; 
-			} 
-			dots.push(head); 
-			dots.shift(); 
-			this.setState({ 
-				snakeDots: dots, 
-			}); 
-		} 
-	}; 
+    const onSnakeCollapsed = useCallback(() => { 
+        let snake = [...gameState.snakeDots]; 
+        let head = snake[snake.length - 1]; 
+        snake.pop(); 
+        snake.forEach((dot) => { 
+            if (head[0] === dot[0] && head[1] === dot[1]) { 
+                gameOver(); 
+            } 
+        }); 
+    }, [gameState.snakeDots]);
 
-	onSnakeOutOfBounds() { 
-		let head = this.state.snakeDots[this.state.snakeDots.length - 1]; 
-		if (this.state.route === "game") { 
-			if ( 
-				head[0] >= 100 || 
-				head[1] >= 100 || 
-				head[0] < 0 || 
-				head[1] < 0 
-			) { 
-				this.gameOver(); 
-			} 
-		} 
-	} 
+    const onSnakeEats = useCallback(() => { 
+        let head = gameState.snakeDots[gameState.snakeDots.length - 1]; 
+        let food = gameState.food; 
+        if (head[0] === food[0] && head[1] === food[1]) { 
+            setGameState(prevState => ({
+                ...prevState,
+                food: getRandomFood()
+            }));
+            increaseSnake(); 
+            increaseSpeed(); 
+        } 
+    }, [gameState.snakeDots, gameState.food]);
 
-	onSnakeCollapsed() { 
-		let snake = [...this.state.snakeDots]; 
-		let head = snake[snake.length - 1]; 
-		snake.pop(); 
-		snake.forEach((dot) => { 
-			if (head[0] == dot[0] && head[1] == dot[1]) { 
-				this.gameOver(); 
-			} 
-		}); 
-	} 
+    const increaseSnake = () => { 
+        setGameState(prevState => {
+            let newSnake = [...prevState.snakeDots]; 
+            newSnake.unshift([]); 
+            return {
+                ...prevState,
+                snakeDots: newSnake
+            };
+        });
+    }; 
 
-	onSnakeEats() { 
-		let head = this.state.snakeDots[this.state.snakeDots.length - 1]; 
-		let food = this.state.food; 
-		if (head[0] == food[0] && head[1] == food[1]) { 
-			this.setState({ 
-				food: getRandomFood(), 
-			}); 
-			this.increaseSnake(); 
-			this.increaseSpeed(); 
-		} 
-	} 
+    const increaseSpeed = () => { 
+        setGameState(prevState => {
+            if (prevState.speed > 10) { 
+                return {
+                    ...prevState,
+                    speed: prevState.speed - 20
+                };
+            }
+            return prevState;
+        });
+    }; 
 
-	increaseSnake() { 
-		let newSnake = [...this.state.snakeDots]; 
-		newSnake.unshift([]); 
-		this.setState({ 
-			snakeDots: newSnake, 
-		}); 
-	} 
+    const onRouteChange = () => { 
+        setGameState(prevState => ({
+            ...prevState,
+            route: "game"
+        }));
+    }; 
 
-	increaseSpeed() { 
-		if (this.state.speed > 10) { 
-			this.setState({ 
-				speed: this.state.speed - 20, 
-			}); 
-		} 
-	} 
+    const gameOver = () => { 
+        alert(`GAME OVER, your score is ${gameState.snakeDots.length - 2}`); 
+        setGameState(initialState); 
+    }; 
 
-	onRouteChange = () => { 
-		this.setState({ 
-			route: "game", 
-		}); 
-	}; 
+    const onDown = () => { 
+        setGameState(prevState => {
+            if (prevState.route !== "game") return prevState;
+            
+            let dots = [...prevState.snakeDots]; 
+            let head = dots[dots.length - 1]; 
 
-	gameOver() { 
-		alert(`GAME OVER, your score is ${this.state.snakeDots.length - 2}`); 
-		this.setState(initialState); 
-	} 
+            head = [head[0], head[1] + 2]; 
+            dots.push(head); 
+            dots.shift(); 
+            return {
+                ...prevState,
+                direction: "DOWN", 
+                snakeDots: dots
+            };
+        });
+    }; 
 
-	onDown = () => { 
-		let dots = [...this.state.snakeDots]; 
-		let head = dots[dots.length - 1]; 
+    const onUp = () => { 
+        setGameState(prevState => {
+            if (prevState.route !== "game") return prevState;
+            
+            let dots = [...prevState.snakeDots]; 
+            let head = dots[dots.length - 1]; 
 
-		head = [head[0], head[1] + 2]; 
-		dots.push(head); 
-		dots.shift(); 
-		this.setState({ 
-			direction: "DOWN", 
-			snakeDots: dots, 
-		}); 
-	}; 
+            head = [head[0], head[1] - 2]; 
+            dots.push(head); 
+            dots.shift(); 
+            return {
+                ...prevState,
+                direction: "UP", 
+                snakeDots: dots
+            };
+        });
+    }; 
 
-	onUp = () => { 
-		let dots = [...this.state.snakeDots]; 
-		let head = dots[dots.length - 1]; 
+    const onRight = () => { 
+        setGameState(prevState => {
+            if (prevState.route !== "game") return prevState;
+            
+            let dots = [...prevState.snakeDots]; 
+            let head = dots[dots.length - 1]; 
 
-		head = [head[0], head[1] - 2]; 
-		dots.push(head); 
-		dots.shift(); 
-		this.setState({ 
-			direction: "UP", 
-			snakeDots: dots, 
-		}); 
-	}; 
+            head = [head[0] + 2, head[1]]; 
+            dots.push(head); 
+            dots.shift(); 
+            return {
+                ...prevState,
+                direction: "RIGHT", 
+                snakeDots: dots
+            };
+        });
+    }; 
 
-	onRight = () => { 
-		let dots = [...this.state.snakeDots]; 
-		let head = dots[dots.length - 1]; 
+    const onLeft = () => { 
+        setGameState(prevState => {
+            if (prevState.route !== "game") return prevState;
+            
+            let dots = [...prevState.snakeDots]; 
+            let head = dots[dots.length - 1]; 
 
-		head = [head[0] + 2, head[1]]; 
-		dots.push(head); 
-		dots.shift(); 
-		this.setState({ 
-			direction: "RIGHT", 
-			snakeDots: dots, 
-		}); 
-	}; 
+            head = [head[0] - 2, head[1]]; 
+            dots.push(head); 
+            dots.shift(); 
+            return {
+                ...prevState,
+                direction: "LEFT", 
+                snakeDots: dots
+            };
+        });
+    }; 
 
-	onLeft = () => { 
-		let dots = [...this.state.snakeDots]; 
-		let head = dots[dots.length - 1]; 
+    // useEffect for game interval and cleanup
+    useEffect(() => {
+        let gameInterval;
+        
+        if (gameState.route === "game") {
+            gameInterval = setInterval(moveSnake, gameState.speed);
+        }
+        
+        return () => {
+            if (gameInterval) {
+                clearInterval(gameInterval);
+            }
+        };
+    }, [gameState.route, gameState.speed, moveSnake]);
 
-		head = [head[0] - 2, head[1]]; 
-		dots.push(head); 
-		dots.shift(); 
-		this.setState({ 
-			direction: "LEFT", 
-			snakeDots: dots, 
-		}); 
-	}; 
+    // useEffect for keyboard event listeners
+    useEffect(() => {
+        document.addEventListener('keydown', onKeyDown);
+        
+        return () => {
+            document.removeEventListener('keydown', onKeyDown);
+        };
+    }, [onKeyDown]);
 
-	render() { 
-		const { route, snakeDots, food } = this.state; 
-		return ( 
-			<>
-			<Navbar/>
-			<Helmet>
-				<title>
-					Arcade: Snake Game
-				</title>
-			</Helmet>
-			<div> 
-				{route === "menu" ? ( 
-					<div> 
-						<Menu onRouteChange={this.onRouteChange} /> 
-					</div> 
-				) : ( 
-					<div> 
-						<div className="game-area"> 
-							<Snaker snakeDots={snakeDots} /> 
-							<Food dot={food} /> 
-						</div> 
-						<Button 
-							onDown={this.onDown} 
-							onLeft={this.onLeft} 
-							onRight={this.onRight} 
-							onUp={this.onUp} 
-						/> 
-					</div> 
-				)} 
-			</div>
-			<Footer/>
-			</>
-		); 
-	} 
-}
- 
+    // useEffect for game logic checks
+    useEffect(() => {
+        if (gameState.route === "game") {
+            onSnakeOutOfBounds();
+            onSnakeCollapsed();
+            onSnakeEats();
+        }
+    }, [gameState.snakeDots, gameState.route, onSnakeOutOfBounds, onSnakeCollapsed, onSnakeEats]);
+
+    const { route, snakeDots, food } = gameState; 
+    return ( 
+        <>
+        <Navbar/>
+        <Helmet>
+            <title>
+                Arcade: Snake Game
+            </title>
+        </Helmet>
+        <div className="snake-container"> 
+            {route === "menu" ? ( 
+                <div> 
+                    <Menu onRouteChange={onRouteChange} /> 
+                </div> 
+            ) : ( 
+                <div> 
+                    <div className="game-area"> 
+                        <Snaker snakeDots={snakeDots} /> 
+                        <Food dot={food} /> 
+                    </div> 
+                    <Button 
+                        onDown={onDown} 
+                        onLeft={onLeft} 
+                        onRight={onRight} 
+                        onUp={onUp} 
+                    /> 
+                </div> 
+            )} 
+        </div>
+        <Footer/>
+        </>
+    ); 
+}; 
 
 export default Snake; 

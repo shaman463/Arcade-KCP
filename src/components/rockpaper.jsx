@@ -57,8 +57,21 @@ function Player({ name = "Player", score = 0, action = "rock" }) {
 }
 
 function ActionButton({ action = "rock", onActionSelected }) {
+  const actionLabels = {
+    rock: "Rock",
+    paper: "Paper", 
+    scissors: "Scissors",
+    lizard: "Lizard",
+    spock: "Spock"
+  };
+
   return (
-    <button className="round-btn-1" onClick={() => onActionSelected(action)}>
+    <button 
+      className="round-btn-1" 
+      onClick={() => onActionSelected(action)}
+      aria-label={`Choose ${actionLabels[action]}`}
+      title={`Select ${actionLabels[action]}`}
+    >
       <ActionIcon action={action} size={60} />
     </button>
   );
