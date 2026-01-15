@@ -1,4 +1,3 @@
-
 import Navbar from "./components/Navbar"
 import './App.css'
 import { Link } from "react-router-dom"
@@ -10,11 +9,6 @@ function App() {
   return (
     <>
       <Navbar />
-
-      <div className="title">
-        <h1>Welcome to Arcade Games</h1>
-      </div>
-
 
       <div className="separation"></div>
 
@@ -29,7 +23,7 @@ function App() {
 
           <span>Because they were tired of always being in a "draw" situation!</span>
 
-          <button type="button" className="play-game text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-1 py-2.5 text-center me-2 mb-2 mt-10"><Link to="/TicTacToe">Play</Link></button>
+          <Link to="/TicTacToe" className="play-game text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-1 py-2.5 text-center me-2 mb-2 mt-10 inline-block">Play</Link>
         </div>
         <div className="Picture">
           <FlipCard frontContent={<img src="https://store-images.s-microsoft.com/image/apps.2005.14057826194083709.67242c47-4fd7-4f1a-9dd6-5d93f6cc10df.f80f14c0-72ab-46ff-86cd-9d801c8e04e8?mode=scale&q=90&h=300&w=300" alt="Tic Tac Toe game board with X and O symbols" />} backContent="Tic Tac Toe Game" />
@@ -55,7 +49,7 @@ function App() {
 
           <span>I'm also dodging my responsibilities... and apparently, my own tail!"</span>
 
-          <button type="button" className="play-game text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-1 py-2.5 text-center me-2 mb-2 mt-10"><Link to="/snake">Play</Link></button>
+          <Link to="/snake" className="play-game text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-1 py-2.5 text-center me-2 mb-2 mt-10 inline-block">Play</Link>
         </div>
 
       </div>
@@ -77,7 +71,7 @@ function App() {
 
           <span>I'd have enough to hire a personal memory coach... or just buy more memory cards!"</span>
 
-          <button type="button" className="play-game text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-1 py-2.5 text-center me-2 mb-2 mt-10"><Link to="/memorygame">Play</Link></button>
+          <Link to="/memorygame" className="play-game text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-1 py-2.5 text-center me-2 mb-2 mt-10 inline-block">Play</Link>
         </div>
         <div className="Picture">
           <FlipCard frontContent={<img className="border-white border-2" src="https://user-images.githubusercontent.com/17979853/140742294-d8e0155b-b840-4a40-ad8d-0d4106b08338.png" alt="Memory card matching game with fantasy themed cards" />} backContent="Memory Game" />
@@ -105,7 +99,7 @@ function App() {
 
           <span> it's like the ultimate stationary showdown!"</span>
 
-          <button type="button" className="play-game text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-1 py-2.5 text-center me-2 mb-2 mt-10"><Link to="/rockpaper">Play</Link></button>
+          <Link to="/rockpaper" className="play-game text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-2xl px-1 py-2.5 text-center me-2 mb-2 mt-10 inline-block">Play</Link>
         </div>
 
       </div>

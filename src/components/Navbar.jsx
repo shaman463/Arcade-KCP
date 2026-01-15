@@ -1,43 +1,150 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { FaSearch, FaUserPlus, FaSignInAlt } from 'react-icons/fa'
 
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const location = useLocation()
+
+  const isActive = (path) => location.pathname === path
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
+
   return (
+    <nav className="bg-black border-b border-gray-800 sticky top-0 z-50">
+      <div className="max-w-7xl flex items-center justify-between mx-auto px-6 py-4">
+        
+        {/* Left Section - Logo and Navigation */}
+        <div className="flex items-center gap-8 flex-1">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity whitespace-nowrap">
+            <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Arcade Games Logo" />
+            <span className="text-2xl font-bold text-white hidden sm:inline">Arcade Games</span>
+          </Link>
 
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-1">
+            <Link 
+              to="/" 
+              className={`px-4 py-2 text-lg font-medium rounded-lg transition-all duration-200 ${isActive('/') ? 'text-blue-400' : 'text-gray-300 hover:text-white'}`}
+            >
+              Home
+            </Link>
 
-    <nav className="bg-white border-gray-200 dark:bg-gray-900">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-          <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">Arcade Games</span>
-        </a>
-        <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
-          <span className="sr-only">Open main menu</span>
-          <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
-          </svg>
-        </button>
-
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li>
-              <Link to="/" className=" mx-3 text-2xl block py-4 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</Link>
-            </li>
-            <li>
-              <Link to="/About" className=" mx-3  text-2xl block py-4 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</Link>
-            </li>
-            <li>
-              <Link to="/Services" className=" mx-3  text-2xl block py-4 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</Link>
-            </li>
-
-            <li>
-              <Link to="/Contact" className=" mx-3 text-2xl block py-4 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</Link>
-            </li>
-          </ul>
+            <Link 
+              to="/About" 
+              className={`px-4 py-2 text-lg font-medium rounded-lg transition-all duration-200 ${isActive('/About') ? 'text-blue-400' : 'text-gray-300 hover:text-white'}`}
+            >
+              About
+            </Link>
+            <Link 
+              to="/Services" 
+              className={`px-4 py-2 text-lg font-medium rounded-lg transition-all duration-200 ${isActive('/Services') ? 'text-blue-400' : 'text-gray-300 hover:text-white'}`}
+            >
+              Services
+            </Link>
+            <Link 
+              to="/Contact" 
+              className={`px-4 py-2 text-lg font-medium rounded-lg transition-all duration-200 ${isActive('/Contact') ? 'text-blue-400' : 'text-gray-300 hover:text-white'}`}
+            >
+              Contact
+            </Link>
+          </div>
         </div>
-      </div>
-    </nav>
 
+        {/* Center - Search Bar */}
+        <div className="hidden md:flex items-center flex-1 justify-center px-8">
+          <div className="relative w-full max-w-xs">
+            <input 
+              type="text"
+              placeholder="Search games..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+            />
+            <FaSearch className="absolute right-3 top-3 text-gray-500" />
+          </div>
+        </div>
+
+        {/* Right Section - Buttons */}
+        <div className="hidden lg:flex items-center gap-3 flex-1 justify-end">
+          <button className="px-5 py-2.5 text-sm font-medium text-gray-300 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-lg transition-all duration-200">
+            <FaSignInAlt className="inline mr-2" />
+            Login
+          </button>
+          <button className="px-5 py-2.5 text-sm font-medium text-black bg-white hover:bg-gray-100 rounded-lg transition-all duration-200 shadow-lg">
+            <FaUserPlus className="inline mr-2" />
+            Sign up
+          </button>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          onClick={toggleMenu}
+          type="button" 
+          className="lg:hidden inline-flex items-center p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all" 
+        >
+          <span className="sr-only">Open main menu</span>
+          {isMenuOpen ? (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-gray-900 border-t border-gray-800">
+          <div className="px-4 py-4 space-y-2">
+            {/* Mobile Search */}
+            <div className="mb-4">
+              <div className="relative w-full">
+                <input 
+                  type="text"
+                  placeholder="Search games..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-gray-300 placeholder-gray-500 focus:outline-none focus:border-blue-500"
+                />
+                <FaSearch className="absolute right-3 top-3 text-gray-500" />
+              </div>
+            </div>
+
+            <Link to="/" className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg" onClick={() => setIsMenuOpen(false)}>
+              Home
+            </Link>
+
+            <Link to="/About" className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg" onClick={() => setIsMenuOpen(false)}>
+              About
+            </Link>
+
+            <Link to="/Services" className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg" onClick={() => setIsMenuOpen(false)}>
+              Services
+            </Link>
+            
+            <Link to="/Contact" className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg" onClick={() => setIsMenuOpen(false)}>
+              Contact
+            </Link>
+
+            {/* Mobile Buttons */}
+            <div className="pt-4 space-y-2 border-t border-gray-800">
+              <button className="w-full px-4 py-2.5 text-sm font-medium text-gray-300 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all">
+                <FaSignInAlt className="inline mr-2" />Login
+              </button>
+              <button className="w-full px-4 py-2.5 text-sm font-medium text-black bg-white hover:bg-gray-100 rounded-lg transition-all">
+                <FaUserPlus className="inline mr-2" />Sign up
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </nav>
   )
 }
 
