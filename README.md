@@ -319,18 +319,6 @@ GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 
 ---
 
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
 ## 📝 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
@@ -358,6 +346,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [ ] Game replays & sharing
 
 ### Under Consideration
+- [ ] More Games
 - [ ] Community tournaments
 - [ ] In-game rewards system
 - [ ] Video tutorials
@@ -369,7 +358,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 📊 Statistics
 
 ```
-Games:              4 classic arcade games
+Games:              classic arcade games
 Authentication:     Email, OAuth, 2FA
 API Endpoints:      15+ endpoints
 User Models:        User, GameScore
