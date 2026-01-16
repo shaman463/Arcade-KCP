@@ -10,6 +10,11 @@ import Services from './components/Services.jsx'
 import App from './App.jsx'
 import Gamespage from './components/Gamespage.jsx'
 import ErrorBoundary from './components/ErrorBoundary.jsx'
+import ForgotPassword from './Authentication/ForgotPassword.jsx'
+import ResetPassword from './Authentication/ResetPassword.jsx'
+import VerifyEmail from './Authentication/VerifyEmail.jsx'
+import OAuthSuccess from './Authentication/OAuthSuccess.jsx'
+import UserSettings from './components/UserSettings.jsx'
 import './index.css'
 import {createBrowserRouter,RouterProvider,} from "react-router-dom";
 import { AuthProvider } from './context/AuthContext';
@@ -50,6 +55,26 @@ const router = createBrowserRouter([
   {
     path: "Services",
     element: <ErrorBoundary><Services/></ErrorBoundary>,
+  },
+  {
+    path: "forgot-password",
+    element: <ErrorBoundary><ForgotPassword/></ErrorBoundary>,
+  },
+  {
+    path: "reset-password",
+    element: <ErrorBoundary><ResetPassword/></ErrorBoundary>,
+  },
+  {
+    path: "verify-email",
+    element: <ErrorBoundary><VerifyEmail/></ErrorBoundary>,
+  },
+  {
+    path: "oauth-success",
+    element: <ErrorBoundary><OAuthSuccess/></ErrorBoundary>,
+  },
+  {
+    path: "settings",
+    element: <ErrorBoundary><UserSettings/></ErrorBoundary>,
   },
 ]); 
 

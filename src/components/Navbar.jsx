@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { FaSearch } from 'react-icons/fa'
+import { FaSearch, FaSignOutAlt } from 'react-icons/fa'
+import { AuthContext } from '../context/AuthContext'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const location = useLocation()
+  const { user, isAuthenticated, logout } = useContext(AuthContext)
 
   const isActive = (path) => location.pathname === path
 
@@ -69,7 +71,24 @@ const Navbar = () => {
 
         {/* Right Section - Buttons */}
         <div className="hidden lg:flex items-center gap-3 flex-1 justify-end">
-          {/* Empty for now - no auth buttons */}
+          {isAuthenticated && user && !user.isGuest ? (
+            <>
+              <div className="px-4 py-2.5 text-sm font-medium text-cyan-400 bg-cyan-950/30 border border-cyan-500/30 rounded-lg">
+                Welcome, <span className="font-bold">{user.username}</span>
+              </div>
+              <button 
+                onClick={logout}
+                className="px-5 py-2.5 text-sm font-medium text-red-300 hover:text-red-200 bg-red-950/30 hover:bg-red-950/50 border border-red-500/30 rounded-lg transition-all duration-200"
+              >
+                <FaSignOutAlt className="inline mr-2" />
+                Logout
+              </button>
+            </>
+          ) : user?.isGuest ? (
+            <div className="px-4 py-2.5 text-sm font-medium text-gray-400 bg-gray-800/30 border border-gray-600/30 rounded-lg">
+              Playing as Guest
+            </div>
+          ) : null}
         </div>
 
         {/* Mobile Menu Button */}
@@ -127,7 +146,23 @@ const Navbar = () => {
 
             {/* Mobile Buttons */}
             <div className="pt-4 space-y-2 border-t border-gray-800">
-              {/* No auth buttons */}
+              {isAuthenticated && user && !user.isGuest ? (
+                <>
+                  <div className="px-4 py-2.5 text-sm font-medium text-cyan-400 bg-cyan-950/30 border border-cyan-500/30 rounded-lg text-center">
+                    Welcome, <span className="font-bold">{user.username}</span>
+                  </div>
+                  <button 
+                    onClick={() => { logout(); setIsMenuOpen(false); }}
+                    className="w-full px-4 py-2.5 text-sm font-medium text-red-300 bg-red-950/30 hover:bg-red-950/50 border border-red-500/30 rounded-lg transition-all"
+                  >
+                    <FaSignOutAlt className="inline mr-2" />Logout
+                  </button>
+                </>
+              ) : user?.isGuest ? (
+                <div className="px-4 py-2.5 text-sm font-medium text-gray-400 bg-gray-800/30 border border-gray-600/30 rounded-lg text-center">
+                  Playing as Guest
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

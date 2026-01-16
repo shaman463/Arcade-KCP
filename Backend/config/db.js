@@ -13,7 +13,10 @@ const connectDB = async () => {
     return conn;
   } catch (error) {
     console.error(`❌ MongoDB Connection Error: ${error.message}`);
-    process.exit(1);
+    console.warn('⚠️  Server will continue running without database connection');
+    console.warn('⚠️  Please start MongoDB or update MONGODB_URI in .env file');
+    // Don't exit the process, just warn
+    return null;
   }
 };
 

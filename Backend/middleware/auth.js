@@ -16,4 +16,6 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+// Export both as default and named export
+export const protect = verifyToken;
 export default verifyToken;

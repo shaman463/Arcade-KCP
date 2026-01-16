@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5001/api';
+const API_BASE_URL = 'http://localhost:5000/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -17,6 +17,35 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// Auth APIs
+export const authAPI = {
+  signup: async (name, email, password, confirmPassword) => {
+    try {
+      const response = await api.post('/auth/signup', {
+        name,
+        email,
+        password,
+        confirmPassword,
+      });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { error: error.message };
+    }
+  },
+
+  login: async (email, password) => {
+    try {
+      const response = await api.post('/auth/login', {
+        email,
+        password,
+      });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { error: error.message };
+    }
+  },
+};
 
 // Game Score APIs
 export const scoresAPI = {

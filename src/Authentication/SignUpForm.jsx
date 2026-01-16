@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const SignUpForm = ({ onClose, onSwitchToLogin }) => {
+  const navigate = useNavigate();
+  const { signup } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,19 +21,35 @@ const SignUpForm = ({ onClose, onSwitchToLogin }) => {
       ...prev,
       [name]: value
     }));
+    setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!');
+      setError('Passwords do not match!');
       return;
     }
     
-    // Handle signup logic here
-    console.log('SignUp submitted:', formData);
+    setIsLoading(true);
+    setError('');
+    setSuccess('');
+    
+    try {
+      await signup(formData.name, formData.email, formData.password, formData.confirmPassword);
+      setSuccess('Account created successfully! Please check your email to verify your account.');
+      // Still allow login even without verification
+      setTimeout(() => {
+        onClose();
+        navigate('/games');
+      }, 3000);
+    } catch (err) {
+      setError(err.error || 'Signup failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -47,6 +70,18 @@ const SignUpForm = ({ onClose, onSwitchToLogin }) => {
             style={{ textShadow: '0 0 10px #FF006E, 0 0 20px #FF006E' }}>
           Sign Up
         </h1>
+
+        {error && (
+          <div className="mb-6 p-4 bg-red-500/20 border-2 border-red-500 rounded-lg text-red-300 text-center">
+            {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="mb-6 p-4 bg-green-500/20 border-2 border-green-500 rounded-lg text-green-300 text-center">
+            {success}
+          </div>
+        )}
         
         <form onSubmit={handleSubmit}>
           {/* Name Input */}
@@ -123,11 +158,12 @@ const SignUpForm = ({ onClose, onSwitchToLogin }) => {
 
           {/* SignUp Button */}
           <button 
-            type="submit" 
-            className="w-full bg-transparent border-2 border-pink-500 text-white font-bold rounded-lg py-3 px-4 hover:bg-pink-500/20 transition-all duration-300"
+            type="submit"
+            disabled={isLoading}
+            className="w-full bg-transparent border-2 border-pink-500 text-white font-bold rounded-lg py-3 px-4 hover:bg-pink-500/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ boxShadow: '0 0 15px rgba(255, 0, 110, 0.3)' }}
           >
-            Sign Up
+            {isLoading ? 'Signing up...' : 'Sign Up'}
           </button>
         </form>
 

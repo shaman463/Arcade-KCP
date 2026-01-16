@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { Sparkles } from 'lucide-react';
 
 const CTASection = () => {
+  const navigate = useNavigate();
+  
   return (
     <section className="py-24 px-4 relative overflow-hidden bg-gradient-to-b from-[#0A001A] to-[#1A0033]">
       {/* Animated background particles */}
@@ -128,6 +131,7 @@ const CTASection = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Button
+                onClick={() => navigate('/games')}
                 className="text-white font-bold px-12 py-8 text-2xl rounded-xl border-2 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-400 hover:to-pink-400 transition-all duration-300"
                 style={{
                   boxShadow: '0 0 20px rgba(0, 217, 255, 0.6), 0 0 40px rgba(255, 0, 110, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.2)'

@@ -98,6 +98,7 @@ const HeroSection = () => {
 
           <div>
             <Button
+              onClick={() => navigate('/games')}
               className="neon-button-magenta text-white font-bold px-8 py-6 text-lg rounded-xl border-2 border-pink-500 bg-transparent hover:bg-pink-500/20 transition-all duration-300"
               style={{
                 boxShadow: '0 0 15px #FF006E, 0 0 30px #FF006E, inset 0 0 15px rgba(255, 0, 110, 0.2)'
