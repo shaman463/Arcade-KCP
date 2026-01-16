@@ -1,5 +1,5 @@
 import React from 'react';
-import './FlipCard.css'; // Assuming you have some CSS for styling
+import '../components/FlipCard.css'; // CSS file is in components folder
 
 const FlipCard = ({ frontContent, backContent }) => {
   return (

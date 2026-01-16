@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from 'react'
 import { useState } from 'react'
-import Navbar from './Navbar'
+import Navbar from '../components/Navbar'
 import { Helmet } from 'react-helmet'
 import './TicTacToe.css'
-import Footer from './Footer'
+import Footer from '../components/Footer'
 
 const TicTacToe = () => {
     const [gameData, setGameData] = useState(Array(9).fill(""))

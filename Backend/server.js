@@ -15,7 +15,7 @@ connectDB();
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173', // React frontend URL
+  origin: ['http://localhost:5173', 'http://localhost:5174'], // React frontend URLs (both possible ports)
   credentials: true
 }));
 app.use(express.json());

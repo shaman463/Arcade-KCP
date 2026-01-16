@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import './MemoryCardGame.css'
 import SingleCard from './SingleCard'
-import Navbar from './Navbar'
+import Navbar from '../components/Navbar'
 import { Helmet } from 'react-helmet'
-import Footer from './Footer'
+import Footer from '../components/Footer'
 
 const cardImages = [
   { "src": "/img/helmet-1.png", matched: false },

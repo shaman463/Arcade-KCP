@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Button from "./Button";
 import Food from "./Food";
-import Menu from "./Menu";
+import Menu from "../components/Menu";
 import Snaker from "./Snaker";
 import "./snake.css"; 
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { Helmet } from "react-helmet";
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 
 const getRandomFood = () => { 
     let min = 1; 

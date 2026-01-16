@@ -1,8 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body{
-  background: rgb(0, 0, 0);
+:root {
+  --neon-cyan: #00D9FF;
+  --neon-magenta: #FF006E;
+  --deep-purple: #1A0033;
+  --darker-purple: #0A001A;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Rajdhani', sans-serif;
+  background: linear-gradient(135deg, var(--deep-purple) 0%, var(--darker-purple) 100%);
+  color: white;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Neon text effects */
+.neon-text-cyan {
+  color: var(--neon-cyan);
+  animation: neonPulseCyan 2s ease-in-out infinite alternate;
+}
+
+.neon-text-magenta {
+  color: var(--neon-magenta);
+  animation: neonPulseMagenta 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulseCyan {
+  from {
+    text-shadow: 
+      0 0 10px var(--neon-cyan),
+      0 0 20px var(--neon-cyan),
+      0 0 30px var(--neon-cyan),
+      0 0 40px var(--neon-cyan);
+  }
+  to {
+    text-shadow: 
+      0 0 15px var(--neon-cyan),
+      0 0 30px var(--neon-cyan),
+      0 0 45px var(--neon-cyan),
+      0 0 60px var(--neon-cyan),
+      0 0 75px var(--neon-cyan);
+  }
+}
+
+@keyframes neonPulseMagenta {
+  from {
+    text-shadow: 
+      0 0 10px var(--neon-magenta),
+      0 0 20px var(--neon-magenta),
+      0 0 30px var(--neon-magenta),
+      0 0 40px var(--neon-magenta);
+  }
+  to {
+    text-shadow: 
+      0 0 15px var(--neon-magenta),
+      0 0 30px var(--neon-magenta),
+      0 0 45px var(--neon-magenta),
+      0 0 60px var(--neon-magenta),
+      0 0 75px var(--neon-magenta);
+  }
+}
+
+/* Neon button effects */
+.neon-button-cyan {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.neon-button-cyan:hover {
+  box-shadow: 
+    0 0 20px var(--neon-cyan),
+    0 0 40px var(--neon-cyan),
+    0 0 60px var(--neon-cyan),
+    inset 0 0 20px rgba(0, 217, 255, 0.3) !important;
+  border-color: var(--neon-cyan) !important;
+  background-color: rgba(0, 217, 255, 0.2) !important;
+}
+
+.neon-button-magenta {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.neon-button-magenta:hover {
+  box-shadow: 
+    0 0 20px var(--neon-magenta),
+    0 0 40px var(--neon-magenta),
+    0 0 60px var(--neon-magenta),
+    inset 0 0 20px rgba(255, 0, 110, 0.3) !important;
+  border-color: var(--neon-magenta) !important;
+  background-color: rgba(255, 0, 110, 0.2) !important;
+}
+
+/* Feature card hover effects */
+.feature-card {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.feature-card-cyan:hover {
+  border-color: var(--neon-cyan) !important;
+  box-shadow: 
+    0 0 20px rgba(0, 217, 255, 0.5),
+    0 0 40px rgba(0, 217, 255, 0.3),
+    inset 0 0 20px rgba(0, 217, 255, 0.1);
+}
+
+.feature-card-magenta:hover {
+  border-color: var(--neon-magenta) !important;
+  box-shadow: 
+    0 0 20px rgba(255, 0, 110, 0.5),
+    0 0 40px rgba(255, 0, 110, 0.3),
+    inset 0 0 20px rgba(255, 0, 110, 0.1);
+}
+
+/* Glowing gradient text */
+.neon-text-gradient {
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  50% {
+    filter: hue-rotate(30deg) brightness(1.2);
+  }
+}
+
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--darker-purple);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta));
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--neon-magenta), var(--neon-cyan));
+}
+
+/* Accessibility improvements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+}
+
+/* Background pattern animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Animation for button shine effect */
+@keyframes shine {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shine {
+  animation: shine 1s ease-in-out forwards;
+}
+
+/* Form input extra glows */
+.neon-input-cyan:focus {
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+}
+
+.neon-input-magenta:focus {
+  box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
+}
+
+/* Custom scrollbar class for Auth Panel */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
 }

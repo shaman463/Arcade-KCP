@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { FaSearch, FaUserPlus, FaSignInAlt } from 'react-icons/fa'
+import { FaSearch } from 'react-icons/fa'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -69,14 +69,7 @@ const Navbar = () => {
 
         {/* Right Section - Buttons */}
         <div className="hidden lg:flex items-center gap-3 flex-1 justify-end">
-          <button className="px-5 py-2.5 text-sm font-medium text-gray-300 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-lg transition-all duration-200">
-            <FaSignInAlt className="inline mr-2" />
-            Login
-          </button>
-          <button className="px-5 py-2.5 text-sm font-medium text-black bg-white hover:bg-gray-100 rounded-lg transition-all duration-200 shadow-lg">
-            <FaUserPlus className="inline mr-2" />
-            Sign up
-          </button>
+          {/* Empty for now - no auth buttons */}
         </div>
 
         {/* Mobile Menu Button */}
@@ -127,19 +120,14 @@ const Navbar = () => {
             <Link to="/Services" className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg" onClick={() => setIsMenuOpen(false)}>
               Services
             </Link>
-            
+
             <Link to="/Contact" className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg" onClick={() => setIsMenuOpen(false)}>
               Contact
             </Link>
 
             {/* Mobile Buttons */}
             <div className="pt-4 space-y-2 border-t border-gray-800">
-              <button className="w-full px-4 py-2.5 text-sm font-medium text-gray-300 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all">
-                <FaSignInAlt className="inline mr-2" />Login
-              </button>
-              <button className="w-full px-4 py-2.5 text-sm font-medium text-black bg-white hover:bg-gray-100 rounded-lg transition-all">
-                <FaUserPlus className="inline mr-2" />Sign up
-              </button>
+              {/* No auth buttons */}
             </div>
           </div>
         </div>
