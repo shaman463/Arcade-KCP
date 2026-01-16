@@ -3,11 +3,7 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from '../models/User.js';
 
 // Determine the backend URL based on environment
-const BACKEND_URL = process.env.BACKEND_URL || (
-  process.env.NODE_ENV === 'production' 
-    ? 'https://arcade-game-22cw.onrender.com'
-    : 'http://localhost:5000'
-);
+const BACKEND_URL = process.env.BACKEND_URL || 'https://arcade-game-22cw.onrender.com';
 
 console.log('🔐 OAuth Callback URL:', BACKEND_URL);
 
