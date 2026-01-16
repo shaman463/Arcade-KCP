@@ -2,6 +2,11 @@ import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from '../models/User.js';
 
+// Determine the backend URL based on environment
+const BACKEND_URL = process.env.NODE_ENV === 'production' 
+  ? process.env.BACKEND_URL || 'https://arcade-game-22cw.onrender.com'
+  : process.env.BACKEND_URL || 'http://localhost:5000';
+
 // Only initialize Google OAuth if credentials are provided
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
   // Google OAuth Strategy
@@ -10,7 +15,7 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: `${process.env.BACKEND_URL}/api/auth/google/callback`,
+        callbackURL: `${BACKEND_URL}/api/auth/google/callback`,
       },
       async (accessToken, refreshToken, profile, done) => {
       try {
