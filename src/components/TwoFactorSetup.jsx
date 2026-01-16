@@ -19,7 +19,7 @@ const TwoFactorSetup = ({ onClose }) => {
 
     try {
       const authToken = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/2fa/setup', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://arcade-game-22cw.onrender.com'}/api/2fa/setup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ const TwoFactorSetup = ({ onClose }) => {
 
     try {
       const authToken = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/2fa/verify', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://arcade-game-22cw.onrender.com'}/api/2fa/verify`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

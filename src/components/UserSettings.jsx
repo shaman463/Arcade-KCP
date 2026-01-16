@@ -19,7 +19,7 @@ const UserSettings = () => {
   const checkTwoFactorStatus = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/2fa/status', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://arcade-game-22cw.onrender.com'}/api/2fa/status`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -48,7 +48,7 @@ const UserSettings = () => {
 
     try {
       const authToken = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/2fa/disable', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://arcade-game-22cw.onrender.com'}/api/2fa/disable`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ const VerifyEmail = () => {
       }
 
       try {
-        const response = await fetch(`http://localhost:5000/api/auth/verify-email/${token}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://arcade-game-22cw.onrender.com'}/api/auth/verify-email/${token}`, {
           method: 'GET',
         });
 

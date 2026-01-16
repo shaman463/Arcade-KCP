@@ -145,7 +145,7 @@ const LoginForm = ({ onClose, onSwitchToSignUp }) => {
 
         {/* Google OAuth Button */}
         <button
-          onClick={() => window.location.href = 'http://localhost:5000/api/auth/google'}
+          onClick={() => window.location.href = `${import.meta.env.VITE_API_URL || 'https://arcade-game-22cw.onrender.com'}/api/auth/google`}
           className="w-full bg-white text-gray-800 font-semibold rounded-lg py-3 px-4 hover:bg-gray-100 transition-all duration-300 flex items-center justify-center gap-3 mb-4"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
