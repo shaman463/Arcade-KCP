@@ -20,7 +20,7 @@ Whether you're a casual gamer or a developer looking for a robust gaming platfor
 ## ✨ Key Features
 
 ### 🎯 Gaming
-- **4 Classic Games**: Tic Tac Toe, Snake, Memory Match, Rock Paper Scissors
+- **Classic Games**: Tic Tac Toe, Snake, Memory Match, Rock Paper Scissors And More Coming
 - **Responsive Gameplay**: Optimized for desktop and mobile devices
 - **Real-time Scoring**: Track your scores and compete on leaderboards
 - **Game Statistics**: View detailed gameplay analytics
