@@ -98,13 +98,14 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // Check if email is verified
-    if (!user.emailVerified && !user.oauthProvider) {
-      return res.status(403).json({ 
-        error: 'Please verify your email before logging in',
-        emailVerified: false 
-      });
-    }
+    // TEMPORARILY DISABLED: Email verification check while email service is being fixed
+    // TODO: Re-enable when email service is working properly
+    // if (!user.emailVerified && !user.oauthProvider) {
+    //   return res.status(403).json({ 
+    //     error: 'Please verify your email before logging in',
+    //     emailVerified: false 
+    //   });
+    // }
 
     // Generate token
     const token = generateToken(user._id);
