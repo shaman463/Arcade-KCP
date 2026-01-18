@@ -42,15 +42,18 @@ router.post('/signup', async (req, res) => {
     
     // Generate email verification token
     const verificationToken = newUser.generateEmailVerificationToken();
-    await newUser.save();
-
-    // Send verification email
+    
+    // Send verification email - but don't require it for signup to succeed
     try {
       await sendVerificationEmail(email, name, verificationToken);
     } catch (emailError) {
       console.error('Failed to send verification email:', emailError);
-      // Continue even if email fails
+      // Mark as verified if email send fails so user can still login
+      // This is temporary - user should verify email manually when email service is fixed
+      newUser.emailVerified = true;
     }
+    
+    await newUser.save();
 
     // Generate token
     const token = generateToken(newUser._id);
