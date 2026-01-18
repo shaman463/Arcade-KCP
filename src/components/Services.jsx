@@ -118,9 +118,9 @@ const Services = () => {
                     <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-2 border-purple-500/50 rounded-2xl p-12 text-center">
                         <h2 className="text-3xl font-bold text-white mb-4">Start Your Premium Experience</h2>
                         <p className="text-gray-300 mb-8 text-lg">Get access to all premium services and unlock exclusive benefits!</p>
-                        <a href="/" className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-400 hover:to-pink-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50">
+                        <button className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-400 hover:to-pink-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50">
                             Join Now
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>

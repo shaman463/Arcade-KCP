@@ -1,9 +1,12 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import { Helmet } from 'react-helmet'
 
+
 const About = () => {
+    const navigate = useNavigate()
     const features = [
         { icon: '🎮', title: 'Diverse Games', desc: 'From action to puzzles, explore endless gaming possibilities' },
         { icon: '👥', title: 'Thriving Community', desc: 'Connect with millions of gamers worldwide and share your passion' },
@@ -78,9 +81,9 @@ const About = () => {
                     <div className="bg-gradient-to-r from-cyan-500/20 to-pink-500/20 border-2 border-cyan-500/50 rounded-2xl p-12 text-center">
                         <h2 className="text-3xl font-bold text-white mb-4">Ready to Join the Adventure?</h2>
                         <p className="text-gray-300 mb-8 text-lg">Start your gaming journey today and become part of our amazing community!</p>
-                        <a href="/" className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-400 hover:to-pink-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50">
+                        <button onClick={() => navigate('/games')} className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-400 hover:to-pink-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50">
                             Explore Games Now
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
