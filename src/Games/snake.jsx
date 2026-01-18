@@ -22,37 +22,57 @@ const initialState = {
     snakeDots: [ 
         [0, 0], 
         [0, 2], 
-    ], 
+    ],
+    difficulty: "medium",
+    isPaused: false,
+    score: 0,
+    highScore: parseInt(localStorage.getItem('snakeHighScore')) || 0,
 }; 
 
 const Snake = () => {
     const [gameState, setGameState] = useState(initialState);
 
     const onKeyDown = useCallback((e) => { 
-        e.preventDefault(); 
         e = e || window.event; 
         
-        setGameState(prevState => {
-            if (prevState.route !== "game") return prevState;
+        // Pause/Resume with Space or P
+        if ((e.keyCode === 32 || e.keyCode === 80) && gameState.route === "game") {
+            e.preventDefault();
+            togglePause();
+            return;
+        }
+        
+        // Restart with R
+        if (e.keyCode === 82 && gameState.route === "game") {
+            e.preventDefault();
+            restartGame();
+            return;
+        }
+        
+        // Arrow keys
+        if (gameState.route === "game" && !gameState.isPaused) {
+            e.preventDefault();
             
-            switch (e.keyCode) { 
-                case 37: 
-                    return prevState.direction !== "RIGHT" ? { ...prevState, direction: "LEFT" } : prevState;
-                case 38: 
-                    return prevState.direction !== "DOWN" ? { ...prevState, direction: "UP" } : prevState;
-                case 39: 
-                    return prevState.direction !== "LEFT" ? { ...prevState, direction: "RIGHT" } : prevState;
-                case 40: 
-                    return prevState.direction !== "UP" ? { ...prevState, direction: "DOWN" } : prevState;
-                default:
-                    return prevState;
-            } 
-        });
-    }, []);
+            setGameState(prevState => {
+                switch (e.keyCode) { 
+                    case 37: 
+                        return prevState.direction !== "RIGHT" ? { ...prevState, direction: "LEFT" } : prevState;
+                    case 38: 
+                        return prevState.direction !== "DOWN" ? { ...prevState, direction: "UP" } : prevState;
+                    case 39: 
+                        return prevState.direction !== "LEFT" ? { ...prevState, direction: "RIGHT" } : prevState;
+                    case 40: 
+                        return prevState.direction !== "UP" ? { ...prevState, direction: "DOWN" } : prevState;
+                    default:
+                        return prevState;
+                } 
+            });
+        }
+    }, [gameState.route, gameState.isPaused]);
 
     const moveSnake = useCallback(() => { 
         setGameState(prevState => {
-            if (prevState.route !== "game") return prevState;
+            if (prevState.route !== "game" || prevState.isPaused) return prevState;
             
             let dots = [...prevState.snakeDots]; 
             let head = dots[dots.length - 1]; 
@@ -112,7 +132,8 @@ const Snake = () => {
         if (head[0] === food[0] && head[1] === food[1]) { 
             setGameState(prevState => ({
                 ...prevState,
-                food: getRandomFood()
+                food: getRandomFood(),
+                score: prevState.score + 10
             }));
             increaseSnake(); 
             increaseSpeed(); 
@@ -142,16 +163,60 @@ const Snake = () => {
         });
     }; 
 
-    const onRouteChange = () => { 
+    const onRouteChange = (difficulty = "medium") => {
+        const speedMap = {
+            easy: 150,
+            medium: 100,
+            hard: 60
+        };
+        
+        setGameState(prevState => ({
+            ...initialState,
+            route: "game",
+            difficulty: difficulty,
+            speed: speedMap[difficulty],
+            highScore: prevState.highScore
+        }));
+    };
+    
+    const togglePause = () => {
         setGameState(prevState => ({
             ...prevState,
-            route: "game"
+            isPaused: !prevState.isPaused
+        }));
+    };
+    
+    const restartGame = () => {
+        setGameState(prevState => ({
+            ...initialState,
+            route: "game",
+            difficulty: prevState.difficulty,
+            speed: prevState.speed,
+            highScore: prevState.highScore
+        }));
+    };
+    
+    const backToMenu = () => {
+        setGameState(prevState => ({
+            ...initialState,
+            highScore: prevState.highScore
         }));
     }; 
 
-    const gameOver = () => { 
-        alert(`GAME OVER, your score is ${gameState.snakeDots.length - 2}`); 
-        setGameState(initialState); 
+    const gameOver = () => {
+        const finalScore = gameState.score;
+        const newHighScore = Math.max(finalScore, gameState.highScore);
+        
+        if (finalScore > gameState.highScore) {
+            localStorage.setItem('snakeHighScore', newHighScore);
+        }
+        
+        setGameState(prevState => ({
+            ...initialState,
+            route: "gameover",
+            score: finalScore,
+            highScore: newHighScore,
+        }));
     }; 
 
     const onDown = () => { 
@@ -230,7 +295,7 @@ const Snake = () => {
     useEffect(() => {
         let gameInterval;
         
-        if (gameState.route === "game") {
+        if (gameState.route === "game" && !gameState.isPaused) {
             gameInterval = setInterval(moveSnake, gameState.speed);
         }
         
@@ -239,7 +304,7 @@ const Snake = () => {
                 clearInterval(gameInterval);
             }
         };
-    }, [gameState.route, gameState.speed, moveSnake]);
+    }, [gameState.route, gameState.speed, gameState.isPaused, moveSnake]);
 
     // useEffect for keyboard event listeners
     useEffect(() => {
@@ -259,7 +324,7 @@ const Snake = () => {
         }
     }, [gameState.snakeDots, gameState.route, onSnakeOutOfBounds, onSnakeCollapsed, onSnakeEats]);
 
-    const { route, snakeDots, food } = gameState; 
+    const { route, snakeDots, food, score, highScore, isPaused, difficulty } = gameState; 
     return ( 
         <>
         <Helmet>
@@ -269,15 +334,110 @@ const Snake = () => {
         </Helmet>
         <div className="snake-container"> 
             {route === "menu" ? ( 
-                <div> 
-                    <Menu onRouteChange={onRouteChange} /> 
-                </div> 
+                <div className="menu-wrapper">
+                    <h1 className="snake-title">🐍 Snake Game</h1>
+                    <div className="high-score-display">
+                        🏆 High Score: {highScore}
+                    </div>
+                    <div className="difficulty-selection">
+                        <h2>Choose Difficulty</h2>
+                        <div className="difficulty-buttons">
+                            <button 
+                                className="difficulty-btn easy"
+                                onClick={() => onRouteChange("easy")}
+                            >
+                                🟢 Easy<br/><span>Slow Speed</span>
+                            </button>
+                            <button 
+                                className="difficulty-btn medium"
+                                onClick={() => onRouteChange("medium")}
+                            >
+                                🟡 Medium<br/><span>Normal Speed</span>
+                            </button>
+                            <button 
+                                className="difficulty-btn hard"
+                                onClick={() => onRouteChange("hard")}
+                            >
+                                🔴 Hard<br/><span>Fast Speed</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div className="game-instructions">
+                        <p>🎮 Use Arrow Keys or On-Screen Buttons</p>
+                        <p>⏸️ Press SPACE or P to Pause</p>
+                        <p>🔄 Press R to Restart</p>
+                    </div>
+                </div>
+            ) : route === "gameover" ? (
+                <div className="gameover-modal">
+                    <div className="gameover-content">
+                        <h1 className="gameover-title">Game Over!</h1>
+                        <div className="gameover-stats">
+                            <div className="stat-item">
+                                <span className="stat-label">Final Score</span>
+                                <span className="stat-value">{score}</span>
+                            </div>
+                            <div className="stat-item">
+                                <span className="stat-label">High Score</span>
+                                <span className="stat-value gold">{highScore}</span>
+                            </div>
+                            {score === highScore && score > 0 && (
+                                <div className="new-record">🎉 New High Score! 🎉</div>
+                            )}
+                        </div>
+                        <div className="gameover-buttons">
+                            <button className="play-again-btn" onClick={restartGame}>
+                                🔄 Play Again
+                            </button>
+                            <button className="menu-btn" onClick={backToMenu}>
+                                🏠 Main Menu
+                            </button>
+                        </div>
+                    </div>
+                </div>
             ) : ( 
-                <div> 
+                <div className="game-wrapper"> 
+                    <div className="game-header">
+                        <div className="game-stats">
+                            <div className="stat-box">
+                                <span className="stat-label-small">Score</span>
+                                <span className="stat-value-small">{score}</span>
+                            </div>
+                            <div className="stat-box">
+                                <span className="stat-label-small">High Score</span>
+                                <span className="stat-value-small gold-text">{highScore}</span>
+                            </div>
+                            <div className="stat-box">
+                                <span className="stat-label-small">Length</span>
+                                <span className="stat-value-small">{snakeDots.length}</span>
+                            </div>
+                        </div>
+                        <div className="game-controls">
+                            <button className="control-btn" onClick={togglePause}>
+                                {isPaused ? "▶️ Resume" : "⏸️ Pause"}
+                            </button>
+                            <button className="control-btn" onClick={restartGame}>
+                                🔄 Restart
+                            </button>
+                            <button className="control-btn" onClick={backToMenu}>
+                                🏠 Menu
+                            </button>
+                        </div>
+                    </div>
+                    
                     <div className="game-area"> 
                         <Snaker snakeDots={snakeDots} /> 
-                        <Food dot={food} /> 
-                    </div> 
+                        <Food dot={food} />
+                        {isPaused && (
+                            <div className="pause-overlay">
+                                <div className="pause-content">
+                                    <h2>⏸️ PAUSED</h2>
+                                    <p>Press SPACE or P to continue</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    
                     <Button 
                         onDown={onDown} 
                         onLeft={onLeft} 

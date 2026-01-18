@@ -1,5 +1,5 @@
 import "./rockpaper.css";
-import { FaHandRock, FaHandPaper, FaHandScissors, FaHandLizard, FaHandSpock } from "react-icons/fa";
+import { FaHandRock, FaHandPaper, FaHandScissors} from "react-icons/fa";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 
@@ -7,8 +7,6 @@ const actions = {
   rock: ["scissors", "lizard"],
   paper: ["rock", "spock"],
   scissors: ["paper", "lizard"],
-  lizard: ["paper", "spock"],
-  spock: ["scissors", "rock"],
 };
 
 function randomAction() {
@@ -36,8 +34,6 @@ function ActionIcon({ action, ...props }) {
     rock: FaHandRock,
     paper: FaHandPaper,
     scissors: FaHandScissors,
-    lizard: FaHandLizard,
-    spock: FaHandSpock,
   };
   const Icon = icons[action];
   return <Icon {...props} />;
@@ -59,8 +55,6 @@ function ActionButton({ action = "rock", onActionSelected }) {
     rock: "Rock",
     paper: "Paper", 
     scissors: "Scissors",
-    lizard: "Lizard",
-    spock: "Spock"
   };
 
   return (
@@ -77,13 +71,19 @@ function ActionButton({ action = "rock", onActionSelected }) {
 
 function ShowWinner({ winner = 0 }) {
   const text = {
-    "-1": "You Win!",
-    0: "It's a Tie",
-    1: "You Lose!",
+    "-1": "🎉 You Win!",
+    0: "🤝 It's a Tie",
+    1: "💻 Computer Wins!",
+  };
+
+  const winnerClass = {
+    "-1": "winner-1 winner-player",
+    0: "winner-1 winner-tie",
+    1: "winner-1 winner-computer",
   };
 
   return (
-    <h2 className="winner-1">{text[winner]}</h2>
+    <h2 className={winnerClass[winner]}>{text[winner]}</h2>
   )
 }
 
@@ -110,6 +110,14 @@ const Rockpaper = () => {
     }
   };
 
+  const resetGame = () => {
+    setPlayerAction("");
+    setComputerAction("");
+    setPlayerScore(0);
+    setComputerScore(0);
+    setWinner(0);
+  };
+
   return (
     <>
       <Helmet>
@@ -118,24 +126,28 @@ const Rockpaper = () => {
         </title>
       </Helmet>
       <div className="center-2">
-        <h1 className="title-2">Rock Paper Scissors</h1>
-        <div>
-          <div className="container-2">
-            <Player name="Player" score={playerScore} action={playerAction} />
-            <Player
-              name="Computer"
-              score={computerScore}
-              action={computerAction}
-            />
+        <div className="game-wrapper-rps">
+          <h1 className="title-2">✊✋✌️ Rock Paper Scissors</h1>
+          <div className="game-content-rps">
+            <div className="container-2">
+              <Player name="Player" score={playerScore} action={playerAction} />
+              <div className="vs-divider">VS</div>
+              <Player
+                name="Computer"
+                score={computerScore}
+                action={computerAction}
+              />
+            </div>
+            <ShowWinner winner={winner} />
+            <div className="actions-container">
+              <ActionButton action="rock" onActionSelected={onActionSelected} />
+              <ActionButton action="paper" onActionSelected={onActionSelected} />
+              <ActionButton action="scissors" onActionSelected={onActionSelected} />
+            </div>
+            <button className="reset-btn-rps" onClick={resetGame}>
+              🔄 Reset Game
+            </button>
           </div>
-          <div>
-            <ActionButton action="rock" onActionSelected={onActionSelected} />
-            <ActionButton action="paper" onActionSelected={onActionSelected} />
-            <ActionButton action="scissors" onActionSelected={onActionSelected} />
-            <ActionButton action="lizard" onActionSelected={onActionSelected} />
-            <ActionButton action="spock" onActionSelected={onActionSelected} />
-          </div>
-          <ShowWinner winner={winner} />
         </div>
       </div>
     </>
