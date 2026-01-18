@@ -1,7 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Burned&display=swap');
 
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.animate-title {
+    animation: slideDown 0.6s ease-out;
+}
+
+.animate-board {
+    animation: fadeIn 0.4s ease-out;
+}
+
 .container-4 {
-    background-color: black;
+    background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 100%);
     min-height: 100vh;
     padding: 20px;
     display: flex;
@@ -14,8 +67,131 @@
     font-family: "Rubik Burned", system-ui;
     font-size: clamp(40px, 8vw, 80px);
     color: white;
-    margin-bottom: 30px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 30px rgba(59, 130, 246, 0.3);
+}
+
+.thinking-indicator {
+    display: inline-block;
+    animation: pulse 1s infinite;
+    margin-left: 10px;
+    font-size: 0.6em;
+}
+
+.game-info {
+    margin-bottom: 15px;
+    height: 30px;
+}
+
+.player-turn {
+    font-family: "Rubik Burned", system-ui;
+    font-size: clamp(20px, 4vw, 28px);
+    color: #3b82f6;
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.mode-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 40px;
+    background: rgba(15, 27, 33, 0.7);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(59, 130, 246, 0.2);
+}
+
+.selection-title {
+    font-family: "Rubik Burned", system-ui;
+    font-size: clamp(24px, 5vw, 40px);
+    color: #3b82f6;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.mode-btn {
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 20px 30px !important;
+}
+
+.mode-icon, .grid-icon {
+    font-size: 3em;
+    margin-bottom: 5px;
+}
+
+.mode-text {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.mode-subtitle {
+    font-size: 0.8em;
+    opacity: 0.8;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.mode-btn-1 {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9) !important;
+    border-color: #8b5cf6 !important;
+}
+
+.mode-btn-1:hover {
+    background: linear-gradient(135deg, #7c3aed, #5b21b6) !important;
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4) !important;
+}
+
+.mode-btn-2 {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    border-color: #10b981 !important;
+}
+
+.mode-btn-2:hover {
+    background: linear-gradient(135deg, #059669, #047857) !important;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4) !important;
+}
+
+.grid-btn {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    border-color: #f59e0b !important;
+}
+
+.grid-btn:hover {
+    background: linear-gradient(135deg, #d97706, #b45309) !important;
+    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4) !important;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.reset-btn {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+    border-color: #3b82f6 !important;
+}
+
+.reset-btn:hover {
+    background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+    animation: glow 1.5s infinite;
+}
+
+.back-btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    border-color: #ef4444 !important;
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4) !important;
 }
 
 .board {
@@ -29,12 +205,13 @@
     background-color: #0f1b21;
     padding: 8px;
     border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
 }
 
 .boxes {
     display: flex;
-    background: #1f3540;
+    background: linear-gradient(135deg, #1f3540, #2a4550);
     border: 4px solid #0f1b21;
     border-radius: 12px;
     cursor: pointer;
@@ -46,37 +223,60 @@
     overflow: hidden;
 }
 
+.boxes::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+}
+
+.boxes:hover::before {
+    transform: translateX(100%);
+}
+
 .boxes:hover {
-    background: #2a4550;
+    background: linear-gradient(135deg, #2a4550, #355560);
     border-color: #1a2631;
-    transform: scale(1.02);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .boxes svg {
     width: 70%;
     height: 70%;
     transition: transform 0.3s ease;
+    animation: fadeIn 0.3s ease-out;
 }
 
 .boxes:hover svg {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(5deg);
+}
+
+.boxes.selected {
+    border: 4px solid #00ff00 !important;
+    box-shadow: 0 0 10px #00ff00 !important;
 }
 
 .tic-button {
     font-family: "Rubik Burned", system-ui;
-    font-size: clamp(20px, 4vw, 40px);
+    font-size: clamp(18px, 3.5vw, 32px);
     color: white;
     background: linear-gradient(135deg, #3b82f6, #1d4ed8);
     border: 2px solid #3b82f6;
     padding: 15px 30px;
     border-radius: 12px;
-    margin: 30px 0;
+    margin: 10px 0;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
 }
 
 .tic-button:hover {
@@ -112,6 +312,19 @@
         padding: 12px 24px;
         margin: 20px 0;
     }
+
+    .mode-selection {
+        padding: 30px 20px;
+    }
+
+    .mode-btn {
+        min-width: 240px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -136,5 +349,13 @@
     .tic-button {
         padding: 10px 20px;
         font-size: 18px;
+    }
+
+    .mode-selection {
+        padding: 20px 15px;
+    }
+
+    .mode-btn {
+        min-width: 200px;
     }
 }
