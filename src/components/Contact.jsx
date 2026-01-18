@@ -66,7 +66,7 @@ const Contact = () => {
         <>
             <Navbar />
             <Helmet>
-                <title>Contact Us - Arcade Games</title>
+                <title>Contact Us - Arcadia</title>
             </Helmet>
 
             {/* Hero Section */}
@@ -156,7 +156,7 @@ const Contact = () => {
                                     📍 Office Address
                                 </h3>
                                 <p className="text-gray-300 text-sm leading-relaxed">
-                                    Arcade Games Headquarters<br />
+                                    Arcadia Headquarters<br />
                                     Khalsa College Patiala<br />
                                     Patiala, Punjab 147001<br />
                                     India

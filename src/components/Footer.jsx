@@ -126,7 +126,7 @@ const Footer = () => {
                 <div className="flex flex-col md:flex-row items-center justify-between">
                     <div className="text-center md:text-left mb-6 md:mb-0">
                         <p className="text-gray-400 text-sm">
-                            © 2023-2026 <span className="bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent font-semibold">Arcade Games</span>. All Rights Reserved.
+                            © 2023-2026 <span className="bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent font-semibold">Arcadia</span>. All Rights Reserved.
                         </p>
                     </div>
                     

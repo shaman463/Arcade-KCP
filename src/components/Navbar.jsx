@@ -29,7 +29,7 @@ const Navbar = () => {
             <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-pink-500 rounded-lg flex items-center justify-center text-white font-bold text-lg group-hover:shadow-lg group-hover:shadow-cyan-500/50 transition-all">
               🎮
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent hidden sm:inline">Arcade Games</span>
+            <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent hidden sm:inline">Arcadia</span>
           </Link>
 
           {/* Desktop Navigation */}

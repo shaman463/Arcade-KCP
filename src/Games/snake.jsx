@@ -27,6 +27,9 @@ const initialState = {
     isPaused: false,
     score: 0,
     highScore: parseInt(localStorage.getItem('snakeHighScore')) || 0,
+    gameTime: 0,
+    bestTime: parseInt(localStorage.getItem('snakeBestTime')) || 0,
+    startTime: null,
 }; 
 
 const Snake = () => {
@@ -136,7 +139,6 @@ const Snake = () => {
                 score: prevState.score + 10
             }));
             increaseSnake(); 
-            increaseSpeed(); 
         } 
     }, [gameState.snakeDots, gameState.food]);
 
@@ -144,29 +146,30 @@ const Snake = () => {
         setGameState(prevState => {
             let newSnake = [...prevState.snakeDots]; 
             newSnake.unshift([]); 
+            newSnake.unshift([]); 
             return {
                 ...prevState,
-                snakeDots: newSnake
+                snakeDots: newSnake 
             };
         });
     }; 
 
-    const increaseSpeed = () => { 
-        setGameState(prevState => {
-            if (prevState.speed > 10) { 
-                return {
-                    ...prevState,
-                    speed: prevState.speed - 20
-                };
-            }
-            return prevState;
-        });
-    }; 
+    // const increaseSpeed = () => { 
+    //     setGameState(prevState => {
+    //         if (prevState.speed > 10) { 
+    //             return {
+    //                 ...prevState,
+    //                 speed: prevState.speed - 5
+    //             };
+    //         }
+    //         return prevState;
+    //     });
+    // }; 
 
     const onRouteChange = (difficulty = "medium") => {
         const speedMap = {
-            easy: 150,
-            medium: 100,
+            easy: 100,
+            medium: 80,
             hard: 60
         };
         
@@ -175,7 +178,10 @@ const Snake = () => {
             route: "game",
             difficulty: difficulty,
             speed: speedMap[difficulty],
-            highScore: prevState.highScore
+            highScore: prevState.highScore,
+            bestTime: prevState.bestTime,
+            startTime: Date.now(),
+            gameTime: 0
         }));
     };
     
@@ -187,28 +193,47 @@ const Snake = () => {
     };
     
     const restartGame = () => {
-        setGameState(prevState => ({
-            ...initialState,
-            route: "game",
-            difficulty: prevState.difficulty,
-            speed: prevState.speed,
-            highScore: prevState.highScore
-        }));
+        const speedMap = {
+            easy: 150,
+            medium: 100,
+            hard: 60
+        };
+        
+        setGameState(prevState => {
+            const currentDifficulty = prevState.difficulty || "medium";
+            return {
+                ...initialState,
+                route: "game",
+                difficulty: currentDifficulty,
+                speed: speedMap[currentDifficulty],
+                highScore: prevState.highScore,
+                bestTime: prevState.bestTime,
+                startTime: Date.now(),
+                gameTime: 0
+            };
+        });
     };
     
     const backToMenu = () => {
         setGameState(prevState => ({
             ...initialState,
-            highScore: prevState.highScore
+            highScore: prevState.highScore,
+            bestTime: prevState.bestTime
         }));
     }; 
 
     const gameOver = () => {
         const finalScore = gameState.score;
+        const finalTime = gameState.gameTime;
         const newHighScore = Math.max(finalScore, gameState.highScore);
+        const newBestTime = Math.max(finalTime, gameState.bestTime);
         
         if (finalScore > gameState.highScore) {
             localStorage.setItem('snakeHighScore', newHighScore);
+        }
+        
+        if (finalTime > gameState.bestTime) {
+            localStorage.setItem('snakeBestTime', newBestTime);
         }
         
         setGameState(prevState => ({
@@ -216,6 +241,10 @@ const Snake = () => {
             route: "gameover",
             score: finalScore,
             highScore: newHighScore,
+            difficulty: prevState.difficulty,
+            speed: prevState.speed,
+            gameTime: finalTime,
+            bestTime: newBestTime
         }));
     }; 
 
@@ -324,7 +353,33 @@ const Snake = () => {
         }
     }, [gameState.snakeDots, gameState.route, onSnakeOutOfBounds, onSnakeCollapsed, onSnakeEats]);
 
-    const { route, snakeDots, food, score, highScore, isPaused, difficulty } = gameState; 
+    // useEffect for timer
+    useEffect(() => {
+        let timerInterval;
+        
+        if (gameState.route === "game" && !gameState.isPaused && gameState.startTime) {
+            timerInterval = setInterval(() => {
+                setGameState(prevState => ({
+                    ...prevState,
+                    gameTime: Math.floor((Date.now() - prevState.startTime) / 1000)
+                }));
+            }, 1000);
+        }
+        
+        return () => {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+        };
+    }, [gameState.route, gameState.isPaused, gameState.startTime]);
+
+    const { route, snakeDots, food, score, highScore, isPaused, difficulty, gameTime, bestTime } = gameState;
+    
+    const formatTime = (seconds) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }; 
     return ( 
         <>
         <Helmet>
@@ -339,6 +394,11 @@ const Snake = () => {
                     <div className="high-score-display">
                         🏆 High Score: {highScore}
                     </div>
+                    {bestTime > 0 && (
+                        <div className="best-time-display">
+                            ⏱️ Best Time: {formatTime(bestTime)}
+                        </div>
+                    )}
                     <div className="difficulty-selection">
                         <h2>Choose Difficulty</h2>
                         <div className="difficulty-buttons">
@@ -381,8 +441,19 @@ const Snake = () => {
                                 <span className="stat-label">High Score</span>
                                 <span className="stat-value gold">{highScore}</span>
                             </div>
+                            <div className="stat-item">
+                                <span className="stat-label">Time Survived</span>
+                                <span className="stat-value">{formatTime(gameTime)}</span>
+                            </div>
+                            <div className="stat-item">
+                                <span className="stat-label">Best Time</span>
+                                <span className="stat-value gold">{formatTime(bestTime)}</span>
+                            </div>
                             {score === highScore && score > 0 && (
                                 <div className="new-record">🎉 New High Score! 🎉</div>
+                            )}
+                            {gameTime === bestTime && gameTime > 0 && (
+                                <div className="new-record">⏱️ New Best Time! ⏱️</div>
                             )}
                         </div>
                         <div className="gameover-buttons">
@@ -406,6 +477,10 @@ const Snake = () => {
                             <div className="stat-box">
                                 <span className="stat-label-small">High Score</span>
                                 <span className="stat-value-small gold-text">{highScore}</span>
+                            </div>
+                            <div className="stat-box">
+                                <span className="stat-label-small">Time</span>
+                                <span className="stat-value-small">{formatTime(gameTime)}</span>
                             </div>
                             <div className="stat-box">
                                 <span className="stat-label-small">Length</span>

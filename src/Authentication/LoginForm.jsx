@@ -44,7 +44,7 @@ const LoginForm = ({ onClose, onSwitchToSignUp }) => {
       <div className="w-1/2 h-screen hidden lg:block relative">
         <img 
           src="https://images.unsplash.com/photo-1632765743329-3b257fe779a6?q=80&w=1074&auto=format&fit=crop" 
-          alt="Arcade Games" 
+          alt="Arcadia" 
           className="object-cover w-full h-full"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#1A0033] to-transparent opacity-60"></div>

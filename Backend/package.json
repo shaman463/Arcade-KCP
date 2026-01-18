@@ -1,7 +1,7 @@
 {
-  "name": "arcade-games-backend",
+  "name": "arcadia-backend",
   "version": "1.0.0",
-  "description": "Backend for Arcade Games",
+  "description": "Backend for Arcadia",
   "main": "server.js",
   "type": "module",
   "scripts": {

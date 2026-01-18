@@ -18,7 +18,7 @@ const About = () => {
         <>
             <Navbar />
             <Helmet>
-                <title>About - Arcade Games</title>
+                <title>About - Arcadia</title>
             </Helmet>
 
             {/* Hero Section */}
@@ -27,7 +27,7 @@ const About = () => {
                     {/* Title */}
                     <div className="text-center mb-16">
                         <h1 className="text-6xl md:text-7xl font-bold text-white mb-4" style={{ textShadow: '0 0 30px rgba(0, 217, 255, 0.3)' }}>
-                            About <span className="bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">Arcade Games</span>
+                            About <span className="bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">Arcadia</span>
                         </h1>
                         <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                             Where gaming passion meets boundless imagination. Join millions of players in the ultimate gaming destination.
@@ -44,7 +44,7 @@ const About = () => {
                                     We are a vibrant community of gamers, united by our shared love for immersive worlds, thrilling challenges, and unforgettable adventures. Whether you're a seasoned veteran or just starting your journey, you've found your digital home.
                                 </p>
                                 <p className="text-gray-300 leading-relaxed">
-                                    At Arcade Games, we believe in the power of gaming to inspire, connect, and entertain. Our platform is more than just a place to play; it's a sanctuary where friendships are forged, skills are honed, and dreams are realized.
+                                    At Arcadia, we believe in the power of gaming to inspire, connect, and entertain. Our platform is more than just a place to play; it's a sanctuary where friendships are forged, skills are honed, and dreams are realized.
                                 </p>
                             </div>
                         </div>

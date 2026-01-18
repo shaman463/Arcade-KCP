@@ -1,4 +1,4 @@
-# 🎮 Arcade Games Platform
+# 🎮 Arcadia Platform
 
 > A feature-rich, full-stack gaming platform with modern authentication, built with React and Node.js
 
@@ -11,7 +11,7 @@
 
 ## 📋 Overview
 
-Welcome to **Arcade Games Platform** — a comprehensive gaming application that combines classic arcade games with modern web technologies. Experience seamless gameplay with enterprise-grade security features including email verification, password reset, Google OAuth, and two-factor authentication.
+Welcome to **Arcadia Platform** — a comprehensive gaming application that combines classic arcade games with modern web technologies. Experience seamless gameplay with enterprise-grade security features including email verification, password reset, Google OAuth, and two-factor authentication.
 
 Whether you're a casual gamer or a developer looking for a robust gaming platform template, this project delivers both functionality and best practices.
 
@@ -201,7 +201,7 @@ GET    /api/scores/leaderboard/:game Get game leaderboard
 ## 📁 Project Structure
 
 ```
-arcade-games/
+arcadia/
 ├── Backend/
 │   ├── config/
 │   │   ├── db.js                 MongoDB connection
@@ -381,7 +381,7 @@ Security Layers:    3+ (JWT, 2FA, hashing)
 
 Made with ❤️ for gamers and developers
 
-[⬆ back to top](#-arcade-games-platform)
+[⬆ back to top](#-arcadia-platform)
 
 </div>
 

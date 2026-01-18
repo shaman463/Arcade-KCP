@@ -7,7 +7,7 @@ import SignUpForm from '../Authentication/SignUpForm';
 
 
 const HeroSection = () => {
-  const title = "ARCADE GAME";
+  const title = "ARCADIA";
   const navigate = useNavigate();
   const { playAsGuest, isAuthenticated, user, logout } = useContext(AuthContext);
   const [showLogin, setShowLogin] = useState(false);
