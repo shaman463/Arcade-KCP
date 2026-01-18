@@ -5,6 +5,8 @@ import passport from 'passport';
 import User from '../models/User.js';
 import { sendVerificationEmail, sendPasswordResetEmail } from '../services/emailService.js';
 import { protect } from '../middleware/auth.js';
+// Ensure passport config is loaded to register strategies
+import '../config/passport.js';
 
 const router = express.Router();
 
