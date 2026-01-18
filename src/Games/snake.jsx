@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import Button from "./Button";
 import Food from "./Food";
 import Menu from "../components/Menu";
 import Snaker from "./Snaker";
 import "./snake.css"; 
 import { Helmet } from "react-helmet";
+import { AuthContext } from "../context/AuthContext";
+import { scoresAPI } from "../services/api";
 
 const getRandomFood = () => { 
     let min = 1; 
@@ -34,6 +36,7 @@ const initialState = {
 
 const Snake = () => {
     const [gameState, setGameState] = useState(initialState);
+    const { user, isAuthenticated } = useContext(AuthContext);
 
     const onKeyDown = useCallback((e) => { 
         e = e || window.event; 
@@ -234,6 +237,21 @@ const Snake = () => {
         
         if (finalTime > gameState.bestTime) {
             localStorage.setItem('snakeBestTime', newBestTime);
+        }
+        
+        // Save score to backend for authenticated users (not guests)
+        if (isAuthenticated && user && !user.isGuest) {
+            try {
+                scoresAPI.saveScore('snake', finalScore, {
+                    time: finalTime,
+                    difficulty: gameState.difficulty,
+                    timestamp: new Date().toISOString()
+                }).catch(err => {
+                    console.error('Failed to save score to database:', err);
+                });
+            } catch (err) {
+                console.error('Error saving score:', err);
+            }
         }
         
         setGameState(prevState => ({

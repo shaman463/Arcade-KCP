@@ -9,21 +9,42 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Check if user is logged in on mount
+  // Check if user is logged in on mount and if session has expired
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem('token');
       const storedUser = localStorage.getItem('user');
+      const sessionExpiry = localStorage.getItem('sessionExpiry');
 
       if (token && storedUser) {
         try {
           const userData = JSON.parse(storedUser);
+          
+          // Check if session has expired (2 days = 48 hours)
+          if (sessionExpiry) {
+            const expiryTime = new Date(sessionExpiry).getTime();
+            const currentTime = new Date().getTime();
+            
+            if (currentTime > expiryTime) {
+              // Session expired, log out
+              console.log('Session expired after 2 days, logging out');
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              localStorage.removeItem('sessionExpiry');
+              setUser(null);
+              setIsAuthenticated(false);
+              setLoading(false);
+              return;
+            }
+          }
+          
           setUser(userData);
           setIsAuthenticated(true);
         } catch (err) {
           console.error('Error parsing stored user:', err);
           localStorage.removeItem('token');
           localStorage.removeItem('user');
+          localStorage.removeItem('sessionExpiry');
         }
       }
       setLoading(false);
@@ -41,6 +62,10 @@ export const AuthProvider = ({ children }) => {
       // Save token and user
       localStorage.setItem('token', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
+      
+      // Set session expiry to 2 days from now
+      const expiryTime = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000); // 2 days
+      localStorage.setItem('sessionExpiry', expiryTime.toISOString());
       
       setUser(response.user);
       setIsAuthenticated(true);
@@ -65,6 +90,10 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('token', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
       
+      // Set session expiry to 2 days from now
+      const expiryTime = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000); // 2 days
+      localStorage.setItem('sessionExpiry', expiryTime.toISOString());
+      
       setUser(response.user);
       setIsAuthenticated(true);
       
@@ -81,6 +110,7 @@ export const AuthProvider = ({ children }) => {
   const logout = useCallback((navigate) => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('sessionExpiry');
     setUser(null);
     setIsAuthenticated(false);
     setError(null);
@@ -95,6 +125,10 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const loginWithOAuth = useCallback((userData) => {
+    // Set session expiry to 2 days from now
+    const expiryTime = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000); // 2 days
+    localStorage.setItem('sessionExpiry', expiryTime.toISOString());
+    
     setUser(userData);
     setIsAuthenticated(true);
   }, []);
