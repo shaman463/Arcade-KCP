@@ -1,87 +1,305 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Burned&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Burned&family=Poppins:wght@400;600;700&display=swap');
 
-body {
-    background-color: rgb(0, 0, 0);
-    text-align: center;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.app {
+.memory-game-container {
     min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.memory-game-container::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: moveBackground 20s linear infinite;
+}
+
+@keyframes moveBackground {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+.memory-game-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    width: 100%;
+}
+
+.memory-title {
+    font-family: "Rubik Burned", system-ui;
+    font-size: clamp(48px, 8vw, 80px);
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
+                 0 0 40px rgba(255, 255, 255, 0.3),
+                 4px 4px 10px rgba(0, 0, 0, 0.5);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(255, 255, 255, 0.3), 4px 4px 10px rgba(0, 0, 0, 0.5); }
+    to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 255, 255, 0.5), 4px 4px 10px rgba(0, 0, 0, 0.5); }
+}
+
+.game-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 20px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color: black;
+    gap: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.title-1 {
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.stat-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #667eea;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-value {
     font-family: "Rubik Burned", system-ui;
-    font-weight: 900;
-    font-size: clamp(40px, 8vw, 80px);
-    color: rgb(168, 168, 168);
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 42px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-value.warning {
+    color: #ff4757;
+    animation: pulse 0.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.new-game-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto 30px;
+    box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.new-game-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+}
+
+.new-game-btn:active {
+    transform: translateY(-1px);
 }
 
 .card-grid {
-    width: min(600px, 90vw);
-    margin: 20px auto;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 15px;
-    padding: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.3s ease;
 }
 
-.button-1 {
-    font-size: clamp(18px, 4vw, 28px);
-    margin: 20px 0;
-    font-weight: bold;
-    border: 2px solid #fff;
-    padding: 12px 24px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    cursor: pointer;
+.card-grid.game-over {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
-.button-1:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+.game-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 50px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    z-index: 1000;
+    animation: slideIn 0.5s ease-out;
+    max-width: 90%;
 }
 
-.turn-1 {
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.game-message h2 {
     font-family: "Rubik Burned", system-ui;
-    font-size: clamp(20px, 4vw, 30px);
-    color: white;
-    margin: 20px 0;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: clamp(32px, 6vw, 48px);
+    margin-bottom: 15px;
+}
+
+.win-message h2 {
+    color: #28a745;
+}
+
+.lose-message h2 {
+    color: #ff4757;
+}
+
+.game-message p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.final-score {
+    font-weight: 700;
+    color: #667eea;
+    font-size: 24px !important;
+    margin-top: 15px;
+}
+
+.play-again-btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    padding: 15px 50px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 25px;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.play-again-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+.play-again-btn:active {
+    transform: translateY(-1px);
 }
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-    .app {
+    .memory-game-container {
         padding: 15px;
-        margin: 0;
+    }
+    
+    .game-stats {
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 15px 25px;
+    }
+    
+    .stat-value {
+        font-size: 32px;
     }
     
     .card-grid {
-        width: 95vw;
         grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        padding: 15px;
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    .game-message {
+        padding: 40px 30px;
     }
 }
 
 @media (max-width: 480px) {
-    .card-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        padding: 10px;
+    .memory-title {
+        font-size: 36px;
+        margin-bottom: 20px;
     }
     
-    .button-1 {
-        padding: 10px 20px;
-        margin: 15px 0;
+    .game-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .stat-card {
+        padding: 12px 30px;
+        width: 100%;
+    }
+    
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 15px;
+    }
+    
+    .new-game-btn, .play-again-btn {
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+    
+    .game-message {
+        padding: 30px 20px;
+    }
+    
+    .game-message h2 {
+        font-size: 28px;
+    }
+    
+    .game-message p {
+        font-size: 16px;
     }
 }

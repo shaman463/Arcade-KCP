@@ -1,9 +1,16 @@
 .card {
     position: relative;
     aspect-ratio: 3/4;
-    max-width: 150px;
-    margin: auto;
     cursor: pointer;
+    perspective: 1000px;
+}
+
+.card > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .card img {
@@ -11,34 +18,44 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    border: 3px solid #333;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.card img:hover {
-    border-color: #555;
-    transform: scale(1.02);
-}
-
-.card .front {
-    transform: rotateY(90deg);
-    transition: all ease-in 0.2s;
+    border-radius: 15px;
+    backface-visibility: hidden;
     position: absolute;
     top: 0;
     left: 0;
 }
 
+.card .front {
+    transform: rotateY(90deg);
+    transition: all ease-in 0.2s;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border: 4px solid #fff;
+}
+
 .flipped .front {
     transform: rotateY(0deg);
     transition-delay: 0.2s;
+    animation: matchGlow 0.6s ease-out;
+}
+
+@keyframes matchGlow {
+    0%, 100% { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.5); }
 }
 
 .card .back {
     transition: all ease-in 0.2s;
     transition-delay: 0.2s;
     position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border: 4px solid rgba(255, 255, 255, 0.8);
+    transform: rotateY(0deg);
+}
+
+.card .back:hover {
+    transform: scale(1.05) rotateY(0deg);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    border-color: #ffd700;
 }
 
 .flipped .back {
@@ -49,21 +66,24 @@
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .card {
-        max-width: 120px;
+        aspect-ratio: 3/4;
     }
     
     .card img {
-        border-width: 2px;
+        border-radius: 12px;
+        border-width: 3px;
     }
 }
 
 @media (max-width: 480px) {
-    .card {
-        max-width: 100px;
+    .card img {
+        border-radius: 10px;
+        border-width: 2px;
     }
+}
+    
     
     .card img {
         border-width: 2px;
         border-radius: 6px;
     }
-}
