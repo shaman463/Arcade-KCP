@@ -78,12 +78,15 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const logout = useCallback(() => {
+  const logout = useCallback((navigate) => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setUser(null);
     setIsAuthenticated(false);
     setError(null);
+    if (navigate) {
+      navigate('/');
+    }
   }, []);
 
   const playAsGuest = useCallback(() => {

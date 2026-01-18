@@ -9,13 +9,21 @@ import SignUpForm from '../Authentication/SignUpForm';
 const HeroSection = () => {
   const title = "ARCADE GAME";
   const navigate = useNavigate();
-  const { playAsGuest } = useContext(AuthContext);
+  const { playAsGuest, isAuthenticated, user, logout } = useContext(AuthContext);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
 
   const handlePlayAsGuest = () => {
     playAsGuest();
     navigate('/games');
+  };
+
+  const handlePlayNow = () => {
+    navigate('/games');
+  };
+
+  const handleLogout = () => {
+    logout(navigate);
   };
 
   return (
@@ -27,22 +35,31 @@ const HeroSection = () => {
         }}>
       </div>
 
-      {/* Login & SignUp Buttons - Top Right */}
+      {/* Login & SignUp Buttons OR Logout Button - Top Right */}
       <div className="absolute top-6 right-6 z-20 flex gap-3">
-        <Button 
-          onClick={() => setShowLogin(true)}
-          className="text-white font-semibold px-6 py-2.5 text-sm rounded-lg border-2 border-cyan-400 bg-transparent hover:bg-cyan-500/30 transition-all duration-300"
-          style={{          }}
-        >
-          Login
-        </Button>
-        <Button 
-          onClick={() => setShowSignUp(true)}
-          className="text-white font-semibold px-6 py-2.5 text-sm rounded-lg border-2 border-pink-500 bg-pink-500/20 hover:bg-pink-500/40 transition-all duration-300"
-          style={{    }}
-        >
-          SignUp
-        </Button>
+        {isAuthenticated && !user?.isGuest ? (
+          <Button 
+            onClick={handleLogout}
+            className="text-white font-semibold px-6 py-2.5 text-sm rounded-lg border-2 border-red-500 bg-red-500/20 hover:bg-red-500/40 transition-all duration-300"
+          >
+            Logout
+          </Button>
+        ) : (
+          <>
+            <Button 
+              onClick={() => setShowLogin(true)}
+              className="text-white font-semibold px-6 py-2.5 text-sm rounded-lg border-2 border-cyan-400 bg-transparent hover:bg-cyan-500/30 transition-all duration-300"
+            >
+              Login
+            </Button>
+            <Button 
+              onClick={() => setShowSignUp(true)}
+              className="text-white font-semibold px-6 py-2.5 text-sm rounded-lg border-2 border-pink-500 bg-pink-500/20 hover:bg-pink-500/40 transition-all duration-300"
+            >
+              SignUp
+            </Button>
+          </>
+        )}
       </div>
       
       {/* Dark Overlay */}
@@ -85,14 +102,14 @@ const HeroSection = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <div>
-            <Button
-              onClick={handlePlayAsGuest}
+          <Button
+              onClick={isAuthenticated && !user?.isGuest ? handlePlayNow : handlePlayAsGuest}
               className="neon-button-cyan text-white font-bold px-8 py-6 text-lg rounded-xl border-2 border-cyan-400 bg-transparent hover:bg-cyan-500/20 transition-all duration-300"
               style={{
                 boxShadow: '0 0 15px #00D9FF, 0 0 30px #00D9FF, inset 0 0 15px rgba(0, 217, 255, 0.2)'
               }}
             >
-              Play Now As a Guest
+              {isAuthenticated && !user?.isGuest ? 'Play Now' : 'Play Now As a Guest'}
             </Button>
           </div>
 

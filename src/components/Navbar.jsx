@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaSearch, FaSignOutAlt } from 'react-icons/fa'
 import { AuthContext } from '../context/AuthContext'
 
@@ -7,11 +7,16 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const location = useLocation()
+  const navigate = useNavigate()
   const { user, isAuthenticated, logout } = useContext(AuthContext)
 
   const isActive = (path) => location.pathname === path
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
+
+  const handleLogout = () => {
+    logout(navigate)
+  };
 
   return (
     <nav className="bg-gradient-to-r from-[#0A001A] via-[#1A0033] to-[#0A001A] border-b-2 border-cyan-500/30 sticky top-0 z-50" style={{ boxShadow: '0 4px 20px rgba(0, 217, 255, 0.1)' }}>
@@ -76,7 +81,7 @@ const Navbar = () => {
           {isAuthenticated && user && !user.isGuest ? (
             <>
               <div className="px-4 py-2.5 text-sm font-semibold text-cyan-300 bg-gradient-to-r from-cyan-500/20 to-cyan-500/10 border-2 border-cyan-500/50 rounded-lg hover:border-cyan-400 transition-all duration-300">
-                ✓ <span className="font-bold">{user.username}</span>
+                <span className="font-bold">{user.username}</span>
               </div>
               <Link 
                 to="/settings"
@@ -85,7 +90,7 @@ const Navbar = () => {
                 ⚙️ Settings
               </Link>
               <button 
-                onClick={logout}
+                onClick={handleLogout}
                 className="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-500 hover:to-pink-500 border-2 border-red-500/50 hover:border-red-400 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-red-500/50"
               >
                 <FaSignOutAlt className="inline mr-2" />
