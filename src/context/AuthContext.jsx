@@ -94,6 +94,11 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   }, []);
 
+  const loginWithOAuth = useCallback((userData) => {
+    setUser(userData);
+    setIsAuthenticated(true);
+  }, []);
+
   const value = {
     user,
     loading,
@@ -103,6 +108,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     playAsGuest,
+    loginWithOAuth,
   };
 
   return (
@@ -110,6 +116,7 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
 };
 
 export default AuthContext;

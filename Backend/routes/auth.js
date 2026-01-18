@@ -306,6 +306,21 @@ router.get(
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
+// @route   GET /api/auth/me
+// @desc    Get current user profile
+// @access  Protected
+router.get('/me', protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch user profile' });
+  }
+});
+
 // @route   GET /api/auth/google/callback
 // @desc    Google OAuth callback
 // @access  Public
@@ -316,8 +331,8 @@ router.get(
     // Generate JWT token
     const token = generateToken(req.user._id);
     
-    // Redirect to frontend with token
-    res.redirect(`${process.env.FRONTEND_URL}/oauth-success?token=${token}`);
+    // Redirect to frontend with token - go to games page after success
+    res.redirect(`${process.env.FRONTEND_URL}/oauth-success?token=${token}&redirect=games`);
   }
 );
 

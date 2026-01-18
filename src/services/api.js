@@ -51,6 +51,15 @@ export const authAPI = {
       throw error.response?.data || { error: error.message };
     }
   },
+
+  getCurrentUser: async () => {
+    try {
+      const response = await api.get('/auth/me');
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { error: error.message };
+    }
+  },
 };
 
 // Game Score APIs
