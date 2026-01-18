@@ -1,9 +1,7 @@
 import "./rockpaper.css";
 import { FaHandRock, FaHandPaper, FaHandScissors, FaHandLizard, FaHandSpock } from "react-icons/fa";
 import { useState } from "react";
-import Navbar from "../components/Navbar";
 import { Helmet } from "react-helmet";
-import Footer from "../components/Footer";
 
 const actions = {
   rock: ["scissors", "lizard"],
@@ -114,7 +112,6 @@ const Rockpaper = () => {
 
   return (
     <>
-      <Navbar />
       <Helmet>
         <title>
           Arcade: Rock Paper scissors
@@ -141,7 +138,6 @@ const Rockpaper = () => {
           <ShowWinner winner={winner} />
         </div>
       </div>
-      <Footer/>
     </>
 
   );

@@ -1,9 +1,8 @@
 import React, { useRef, useEffect } from 'react'
 import { useState } from 'react'
-import Navbar from '../components/Navbar'
 import { Helmet } from 'react-helmet'
 import './TicTacToe.css'
-import Footer from '../components/Footer'
+
 
 const TicTacToe = () => {
     const [gameData, setGameData] = useState(Array(9).fill(""))
@@ -152,7 +151,6 @@ const TicTacToe = () => {
 
     return (
         <>
-            <Navbar />
             <Helmet>
                 <title>
                     Arcade: TicTacToe
@@ -173,7 +171,7 @@ const TicTacToe = () => {
                 </div>
                 <button onClick={() => { reset() }} className='tic-button'>New Game</button>
             </div>
-            <Footer />
+
         </>
     )
 }

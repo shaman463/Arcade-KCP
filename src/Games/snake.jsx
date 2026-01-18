@@ -4,9 +4,7 @@ import Food from "./Food";
 import Menu from "../components/Menu";
 import Snaker from "./Snaker";
 import "./snake.css"; 
-import Navbar from "../components/Navbar";
 import { Helmet } from "react-helmet";
-import Footer from "../components/Footer";
 
 const getRandomFood = () => { 
     let min = 1; 
@@ -264,7 +262,6 @@ const Snake = () => {
     const { route, snakeDots, food } = gameState; 
     return ( 
         <>
-        <Navbar/>
         <Helmet>
             <title>
                 Arcade: Snake Game
@@ -290,7 +287,6 @@ const Snake = () => {
                 </div> 
             )} 
         </div>
-        <Footer/>
         </>
     ); 
 }; 
