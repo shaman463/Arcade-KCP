@@ -12,18 +12,6 @@ Exploring advanced ML techniques and improving my backend skills.
 Deepening my understanding of machine learning models.
 Improving full-stack development skills and writing cleaner, more efficient code.
 
-## Collaboration interests
-
-Machine learning projects
-Data-driven applications
-Full-stack or open-source work
-
-## Ask me about
-
-Machine Learning, Scikit-learn
-DSA, problem-solving approaches
-React, Next.js, and backend architecture
-
 ## Languages and Tools
 
 <p align="left">
