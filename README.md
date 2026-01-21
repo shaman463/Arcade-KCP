@@ -23,18 +23,12 @@ Whether you're a casual gamer or a developer looking for a robust gaming platfor
 
 ### Application Preview
 
-![Screenshot 1](./dist/assets/Screenshot%202026-01-21%20133514.png)
-![Screenshot 2](./dist/assets/Screenshot%202026-01-21%20133855.png)
-![Screenshot 3](./dist/assets/Screenshot%202026-01-21%20133905.png)
-![Screenshot 4](./dist/assets/Screenshot%202026-01-21%20133915.png)
-![Screenshot 5](./dist/assets/Screenshot%202026-01-21%20133944.png)
-![Screenshot 6](./dist/assets/Screenshot%202026-01-21%20134325.png)
-![Screenshot 7](./dist/assets/Screenshot%202026-01-21%20134432.png)
-![Screenshot 8](./dist/assets/Screenshot%202026-01-21%20134442.png)
-![Screenshot 9](./dist/assets/Screenshot%202026-01-21%20134454.png)
-![Screenshot 10](./dist/assets/Screenshot%202026-01-21%20134508.png)
-![Screenshot 11](./dist/assets/Screenshot%202026-01-21%20134533.png)
-![Screenshot 12](./dist/assets/Screenshot%202026-01-21%20134624.png)
+| | | |
+|:---:|:---:|:---:|
+| [![Screenshot 1](./dist/assets/Screenshot%202026-01-21%20133514.png)](./dist/assets/Screenshot%202026-01-21%20133514.png) | [![Screenshot 2](./dist/assets/Screenshot%202026-01-21%20133855.png)](./dist/assets/Screenshot%202026-01-21%20133855.png) | [![Screenshot 3](./dist/assets/Screenshot%202026-01-21%20133905.png)](./dist/assets/Screenshot%202026-01-21%20133905.png) |
+| [![Screenshot 4](./dist/assets/Screenshot%202026-01-21%20133915.png)](./dist/assets/Screenshot%202026-01-21%20133915.png) | [![Screenshot 5](./dist/assets/Screenshot%202026-01-21%20133944.png)](./dist/assets/Screenshot%202026-01-21%20133944.png) | [![Screenshot 6](./dist/assets/Screenshot%202026-01-21%20134325.png)](./dist/assets/Screenshot%202026-01-21%20134325.png) |
+| [![Screenshot 7](./dist/assets/Screenshot%202026-01-21%20134432.png)](./dist/assets/Screenshot%202026-01-21%20134432.png) | [![Screenshot 8](./dist/assets/Screenshot%202026-01-21%20134442.png)](./dist/assets/Screenshot%202026-01-21%20134442.png) | [![Screenshot 9](./dist/assets/Screenshot%202026-01-21%20134454.png)](./dist/assets/Screenshot%202026-01-21%20134454.png) |
+| [![Screenshot 10](./dist/assets/Screenshot%202026-01-21%20134508.png)](./dist/assets/Screenshot%202026-01-21%20134508.png) | [![Screenshot 11](./dist/assets/Screenshot%202026-01-21%20134533.png)](./dist/assets/Screenshot%202026-01-21%20134533.png) | [![Screenshot 12](./dist/assets/Screenshot%202026-01-21%20134624.png)](./dist/assets/Screenshot%202026-01-21%20134624.png) |
 
 *Arcadia Platform - A modern gaming experience with enterprise-grade authentication*
 
