@@ -23,63 +23,76 @@ Whether you're a casual gamer or a developer looking for a robust gaming platfor
 
 ### Application Preview
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px auto; max-width: 800px;">
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px auto; max-width: 900px;">
+
   <div style="border: 2px solid #6366f1; border-radius: 12px; overflow: hidden; background: #0f172a;">
-    <a href="./dist/assets/Screenshot%202026-01-21%20133855.png">
-      <img src="./dist/assets/Screenshot%202026-01-21%20133855.png" alt="Screenshot 2" style="width: 100%; height: auto; display: block;">
+    <a href="dist/assets/Screenshot 2026-01-21 133855.png">
+      <img src="dist/assets/Screenshot 2026-01-21 133855.png" alt="Screenshot 1" style="width: 100%; height: auto; display: block;">
     </a>
   </div>
+
   <div style="border: 2px solid #6366f1; border-radius: 12px; overflow: hidden; background: #0f172a;">
-    <a href="./dist/assets/Screenshot%202026-01-21%20133905.png">
-      <img src="./dist/assets/Screenshot%202026-01-21%20133905.png" alt="Screenshot 3" style="width: 100%; height: auto; display: block;">
+    <a href="dist/assets/Screenshot 2026-01-21 133905.png">
+      <img src="dist/assets/Screenshot 2026-01-21 133905.png" alt="Screenshot 2" style="width: 100%; height: auto; display: block;">
     </a>
   </div>
+
   <div style="border: 2px solid #6366f1; border-radius: 12px; overflow: hidden; background: #0f172a;">
-    <a href="./dist/assets/Screenshot%202026-01-21%20133915.png">
-      <img src="./dist/assets/Screenshot%202026-01-21%20133915.png" alt="Screenshot 4" style="width: 100%; height: auto; display: block;">
+    <a href="dist/assets/Screenshot 2026-01-21 133915.png">
+      <img src="dist/assets/Screenshot 2026-01-21 133915.png" alt="Screenshot 3" style="width: 100%; height: auto; display: block;">
     </a>
   </div>
+
   <div style="border: 2px solid #6366f1; border-radius: 12px; overflow: hidden; background: #0f172a;">
-    <a href="./dist/assets/Screenshot%202026-01-21%20133944.png">
-      <img src="./dist/assets/Screenshot%202026-01-21%20133944.png" alt="Screenshot 5" style="width: 100%; height: auto; display: block;">
+    <a href="dist/assets/Screenshot 2026-01-21 133944.png">
+      <img src="dist/assets/Screenshot 2026-01-21 133944.png" alt="Screenshot 4" style="width: 100%; height: auto; display: block;">
     </a>
   </div>
+
   <div style="border: 2px solid #6366f1; border-radius: 12px; overflow: hidden; background: #0f172a;">
-    <a href="./dist/assets/Screenshot%202026-01-21%20134325.png">
-      <img src="./dist/assets/Screenshot%202026-01-21%20134325.png" alt="Screenshot 6" style="width: 100%; height: auto; display: block;">
+    <a href="dist/assets/Screenshot 2026-01-21 134325.png">
+      <img src="dist/assets/Screenshot 2026-01-21 134325.png" alt="Screenshot 5" style="width: 100%; height: auto; display: block;">
     </a>
   </div>
+
   <div style="border: 2px solid #6366f1; border-radius: 12px; overflow: hidden; background: #0f172a;">
-    <a href="./dist/assets/Screenshot%202026-01-21%20134432.png">
-      <img src="./dist/assets/Screenshot%202026-01-21%20134432.png" alt="Screenshot 7" style="width: 100%; height: auto; display: block;">
+    <a href="dist/assets/Screenshot 2026-01-21 134432.png">
+      <img src="dist/assets/Screenshot 2026-01-21 134432.png" alt="Screenshot 6" style="width: 100%; height: auto; display: block;">
     </a>
   </div>
+
   <div style="border: 2px solid #6366f1; border-radius: 12px; overflow: hidden; background: #0f172a;">
-    <a href="./dist/assets/Screenshot%202026-01-21%20134442.png">
-      <img src="./dist/assets/Screenshot%202026-01-21%20134442.png" alt="Screenshot 8" style="width: 100%; height: auto; display: block;">
+    <a href="dist/assets/Screenshot 2026-01-21 134442.png">
+      <img src="dist/assets/Screenshot 2026-01-21 134442.png" alt="Screenshot 7" style="width: 100%; height: auto; display: block;">
     </a>
   </div>
+
   <div style="border: 2px solid #6366f1; border-radius: 12px; overflow: hidden; background: #0f172a;">
-    <a href="./dist/assets/Screenshot%202026-01-21%20134454.png">
-      <img src="./dist/assets/Screenshot%202026-01-21%20134454.png" alt="Screenshot 9" style="width: 100%; height: auto; display: block;">
+    <a href="dist/assets/Screenshot 2026-01-21 134454.png">
+      <img src="dist/assets/Screenshot 2026-01-21 134454.png" alt="Screenshot 8" style="width: 100%; height: auto; display: block;">
     </a>
   </div>
+
   <div style="border: 2px solid #6366f1; border-radius: 12px; overflow: hidden; background: #0f172a;">
-    <a href="./dist/assets/Screenshot%202026-01-21%20134508.png">
-      <img src="./dist/assets/Screenshot%202026-01-21%20134508.png" alt="Screenshot 10" style="width: 100%; height: auto; display: block;">
+    <a href="dist/assets/Screenshot 2026-01-21 134508.png">
+      <img src="dist/assets/Screenshot 2026-01-21 134508.png" alt="Screenshot 9" style="width: 100%; height: auto; display: block;">
     </a>
   </div>
+
   <div style="border: 2px solid #6366f1; border-radius: 12px; overflow: hidden; background: #0f172a;">
-    <a href="./dist/assets/Screenshot%202026-01-21%20134533.png">
-      <img src="./dist/assets/Screenshot%202026-01-21%20134533.png" alt="Screenshot 11" style="width: 100%; height: auto; display: block;">
+    <a href="dist/assets/Screenshot 2026-01-21 134533.png">
+      <img src="dist/assets/Screenshot 2026-01-21 134533.png" alt="Screenshot 10" style="width: 100%; height: auto; display: block;">
     </a>
   </div>
+
   <div style="border: 2px solid #6366f1; border-radius: 12px; overflow: hidden; background: #0f172a;">
-    <a href="./dist/assets/Screenshot%202026-01-21%20134624.png">
-      <img src="./dist/assets/Screenshot%202026-01-21%20134624.png" alt="Screenshot 12" style="width: 100%; height: auto; display: block;">
+    <a href="dist/assets/Screenshot 2026-01-21 134624.png">
+      <img src="dist/assets/Screenshot 2026-01-21 134624.png" alt="Screenshot 11" style="width: 100%; height: auto; display: block;">
     </a>
   </div>
+
 </div>
+
 
 *Arcadia Platform - A modern gaming experience with enterprise-grade authentication*
 
