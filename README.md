@@ -21,12 +21,7 @@ Whether you're a casual gamer or a developer looking for a robust gaming platfor
 
 <div align="center">
 
-**Try Arcadia Now!**
-
-| Frontend | Backend |
-|----------|---------|
-| [🎮 Play Now](https://arcadia-ruby.vercel.app) | [⚙️ API](https://arcade-game-22cw.onrender.com) |
-| Hosted on Vercel | Hosted on Render |
+**[🎮 Play Now](https://arcadia-ruby.vercel.app)** - Hosted on Vercel
 
 </div>
 
